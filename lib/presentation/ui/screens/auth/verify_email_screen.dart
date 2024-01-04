@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:infinity_buy/presentation/ui/screens/auth/verify_otp_screen.dart';
 import 'package:infinity_buy/presentation/ui/widgets/app_logo.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
@@ -24,7 +26,7 @@ class VerifyEmailScreen extends StatelessWidget {
                 "Please enter your email address",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(hintText: "Email"),
@@ -33,7 +35,9 @@ class VerifyEmailScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(const VerifyOTPScreen());
+                  },
                   child: const Text("Next"),
                 ),
               ),

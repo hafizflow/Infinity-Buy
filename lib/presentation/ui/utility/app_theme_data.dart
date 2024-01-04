@@ -49,7 +49,13 @@ class AppThemeData {
         borderSide: BorderSide(color: Colors.redAccent),
       ),
     ),
-    progressIndicatorTheme:
-        const ProgressIndicatorThemeData(color: AppColors.primaryColor),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: AppColors.primaryColor,
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: AppColors.primaryColor,
+      ),
+    ),
   );
 }

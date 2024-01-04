@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:infinity_buy/presentation/ui/screens/verify_email_screen.dart';
+import 'package:infinity_buy/presentation/ui/screens/auth/verify_email_screen.dart';
 import 'package:infinity_buy/presentation/ui/widgets/app_logo.dart';
 
 class SplashScreen extends StatefulWidget {
