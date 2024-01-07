@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_buy/presentation/ui/screens/auth/complete_profile_screen.dart';
@@ -6,8 +8,32 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../utility/app_colors.dart';
 
-class VerifyOTPScreen extends StatelessWidget {
+class VerifyOTPScreen extends StatefulWidget {
   const VerifyOTPScreen({super.key});
+
+  @override
+  State<VerifyOTPScreen> createState() => _VerifyOTPScreenState();
+}
+
+class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
+  late Timer countdownTimer;
+  int resendTime = 120;
+
+  @override
+  void initState() {
+    startTimer();
+    super.initState();
+  }
+
+  void startTimer() {
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      resendTime--;
+      setState(() {});
+      if (resendTime < 1) {
+        countdownTimer.cancel();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,26 +94,28 @@ class VerifyOTPScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               RichText(
-                text: const TextSpan(
-                  style: TextStyle(color: Colors.grey),
+                text: TextSpan(
+                  style: const TextStyle(color: Colors.grey),
                   children: [
-                    TextSpan(text: "This code will expire "),
+                    const TextSpan(text: "This code will expire "),
                     TextSpan(
-                      text: "120s",
-                      style: TextStyle(
+                      text: "${resendTime}s",
+                      style: const TextStyle(
                           color: AppColors.primaryColor,
                           fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
               ),
-              TextButton(
-                onPressed: () {},
-                child: const Text(
-                  "Resend Code",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
+              resendTime == 0
+                  ? TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Resend Code",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    )
+                  : const Text(''),
             ],
           ),
         ),
