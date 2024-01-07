@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:infinity_buy/presentation/ui/screens/home_screen.dart';
 import 'package:infinity_buy/presentation/ui/screens/wish_screen.dart';
@@ -14,6 +16,7 @@ class MainBottomNavScreen extends StatefulWidget {
 }
 
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
+  // BottomNavigationController controller = Get.put(BottomNavigationController());
   int _selectedIndex = 0;
   final List<Widget> _screens = [
     const HomeScreen(),
@@ -24,99 +27,65 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("Whole page built");
+    log("Whole page built");
     return Scaffold(
       body: _screens[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: AppColors.primaryColor,
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          _selectedIndex = index;
-          if (mounted) {
-            setState(() {});
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.space_dashboard_outlined),
-            activeIcon: Icon(Icons.space_dashboard),
-            label: "Categories",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            activeIcon: Icon(Icons.shopping_cart),
-            label: "Cart",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_outline_rounded),
-            activeIcon: Icon(Icons.favorite),
-            label: "Wish",
-          ),
-        ],
-      ),
+      bottomNavigationBar: bottomNavigationBar,
+    );
+  }
+
+  BottomNavigationBar get bottomNavigationBar {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
+      selectedItemColor: AppColors.primaryColor,
+      unselectedItemColor: Colors.grey,
+      showUnselectedLabels: true,
+      currentIndex: _selectedIndex,
+      iconSize: 30,
+      onTap: (index) {
+        _selectedIndex = index;
+        setState(() {});
+        // controller.changeTabIndex(index);
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home_outlined),
+          activeIcon: Icon(Icons.home),
+          label: "Home",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.space_dashboard_outlined),
+          activeIcon: Icon(Icons.space_dashboard),
+          label: "Categories",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_cart_outlined),
+          activeIcon: Icon(Icons.shopping_cart),
+          label: "Cart",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite_outline_rounded),
+          activeIcon: Icon(Icons.favorite),
+          label: "Wish",
+        ),
+      ],
     );
   }
 }
 
-// Scaffold(
-// bottomNavigationBar: NavigationBarTheme(
-// data: NavigationBarThemeData(
-// indicatorColor: Colors.transparent,
-// backgroundColor: Colors.transparent,
-// labelTextStyle: MaterialStateProperty.all(
-// const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-// ),
-// iconTheme: MaterialStateProperty.all(
-// const IconThemeData(size: 30),
-// ),
-// ),
-// child: NavigationBar(
-// selectedIndex: index,
-// onDestinationSelected: (index) {
-// this.index = index;
-// setState(() {});
-// },
-// destinations: const [
-// NavigationDestination(
-// icon: Icon(Icons.home_outlined),
-// selectedIcon: Icon(
-// Icons.home,
-// color: AppColors.primaryColor,
-// ),
-// label: "Home",
-// ),
-// NavigationDestination(
-// icon: Icon(Icons.space_dashboard_outlined),
-// selectedIcon: Icon(
-// Icons.space_dashboard,
-// color: AppColors.primaryColor,
-// ),
-// label: "Categories",
-// ),
-// NavigationDestination(
-// icon: Icon(Icons.shopping_cart_outlined),
-// selectedIcon: Icon(
-// Icons.shopping_cart,
-// color: AppColors.primaryColor,
-// ),
-// label: "Cart",
-// ),
-// NavigationDestination(
-// icon: Icon(Icons.favorite_outline_rounded),
-// selectedIcon: Icon(
-// Icons.favorite,
-// color: AppColors.primaryColor,
-// ),
-// label: "Wish",
-// ),
-// ],
-// ),
-// ),
-// );
+// class BottomNavigationController extends GetxController {
+//   RxInt tabIndex = 0.obs;
+//
+//   final List<Widget> screen = [
+//     const HomeScreen(),
+//     const CategoryScreen(),
+//     const CartScreen(),
+//     const WishScreen(),
+//   ];
+//
+//   void changeTabIndex(int index) {
+//     tabIndex.value = index;
+//     update();
+//   }
+// }
