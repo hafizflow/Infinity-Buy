@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:infinity_buy/presentation/ui/screens/home_screen.dart';
 import 'package:infinity_buy/presentation/ui/screens/wish_screen.dart';
 import 'package:infinity_buy/presentation/ui/utility/app_colors.dart';
@@ -16,22 +17,17 @@ class MainBottomNavScreen extends StatefulWidget {
 }
 
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
-  // BottomNavigationController controller = Get.put(BottomNavigationController());
-  int _selectedIndex = 0;
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    const CategoryScreen(),
-    const CartScreen(),
-    const WishScreen(),
-  ];
+  BottomNavigationController controller = Get.put(BottomNavigationController());
 
   @override
   Widget build(BuildContext context) {
-    log("Whole page built");
-    return Scaffold(
-      body: _screens[_selectedIndex],
-      bottomNavigationBar: bottomNavigationBar,
-    );
+    log("Whole page rebuilt");
+    return GetBuilder<BottomNavigationController>(builder: (controller) {
+      return Scaffold(
+        body: controller.screens[controller.tabIndex.value],
+        bottomNavigationBar: bottomNavigationBar,
+      );
+    });
   }
 
   BottomNavigationBar get bottomNavigationBar {
@@ -41,13 +37,9 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
       selectedItemColor: AppColors.primaryColor,
       unselectedItemColor: Colors.grey,
       showUnselectedLabels: true,
-      currentIndex: _selectedIndex,
+      currentIndex: controller.tabIndex.value,
       iconSize: 30,
-      onTap: (index) {
-        _selectedIndex = index;
-        setState(() {});
-        // controller.changeTabIndex(index);
-      },
+      onTap: controller.changeTabIndex,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),
@@ -74,18 +66,18 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   }
 }
 
-// class BottomNavigationController extends GetxController {
-//   RxInt tabIndex = 0.obs;
-//
-//   final List<Widget> screen = [
-//     const HomeScreen(),
-//     const CategoryScreen(),
-//     const CartScreen(),
-//     const WishScreen(),
-//   ];
-//
-//   void changeTabIndex(int index) {
-//     tabIndex.value = index;
-//     update();
-//   }
-// }
+class BottomNavigationController extends GetxController {
+  RxInt tabIndex = 0.obs;
+
+  final List<Widget> screens = [
+    const HomeScreen(),
+    const CategoryScreen(),
+    const CartScreen(),
+    const WishScreen(),
+  ];
+
+  void changeTabIndex(int index) {
+    tabIndex.value = index;
+    update();
+  }
+}

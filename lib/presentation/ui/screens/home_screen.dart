@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:infinity_buy/presentation/ui/utility/assets_path.dart';
 
+import '../widgets/category_item.dart';
 import '../widgets/home/circle_icon_button.dart';
 import '../widgets/home/banner_carousel.dart';
 import '../widgets/home/section_title.dart';
+import '../widgets/product_card_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,9 +33,63 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: 'All Categories',
                 onTapSeeAll: () {},
               ),
+              categoryList,
+              SectionTitle(
+                title: 'Popular',
+                onTapSeeAll: () {},
+              ),
+              productList,
+              const SizedBox(height: 8),
+              SectionTitle(
+                title: 'Special',
+                onTapSeeAll: () {},
+              ),
+              productList,
+              const SizedBox(height: 8),
+              SectionTitle(
+                title: 'New',
+                onTapSeeAll: () {},
+              ),
+              productList,
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  SizedBox get categoryList {
+    return SizedBox(
+      height: 130,
+      child: ListView.separated(
+        primary: false,
+        shrinkWrap: true,
+        itemCount: 10,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return const CategoryItem();
+        },
+        separatorBuilder: (_, __) {
+          return const SizedBox(width: 14);
+        },
+      ),
+    );
+  }
+
+  SizedBox get productList {
+    return SizedBox(
+      height: 190,
+      child: ListView.separated(
+        primary: false,
+        shrinkWrap: true,
+        itemCount: 10,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return const ProductCardItem();
+        },
+        separatorBuilder: (_, __) {
+          return const SizedBox(width: 8);
+        },
       ),
     );
   }
@@ -67,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
   AppBar get appBar {
     return AppBar(
       title: Image.asset(
-        AssetsPath.logoBar,
+        AssetsPath.logoBarPng,
         height: 45,
       ),
       actions: [

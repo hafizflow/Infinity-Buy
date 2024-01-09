@@ -28,7 +28,9 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
   void startTimer() {
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       resendTime--;
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
       if (resendTime < 1) {
         countdownTimer.cancel();
       }
