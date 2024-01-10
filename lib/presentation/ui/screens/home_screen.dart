@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:infinity_buy/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:infinity_buy/presentation/ui/utility/assets_path.dart';
 
 import '../widgets/category_item.dart';
@@ -31,7 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 16),
               SectionTitle(
                 title: 'All Categories',
-                onTapSeeAll: () {},
+                onTapSeeAll: () {
+                  Get.find<MainBottomNavController>().changeIndex(1);
+                },
               ),
               categoryList,
               SectionTitle(

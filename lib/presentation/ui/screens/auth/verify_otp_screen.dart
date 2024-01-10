@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -80,7 +81,7 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                 backgroundColor: Colors.transparent,
                 enableActiveFill: true,
                 onCompleted: (v) {
-                  print("Completed");
+                  log("Completed");
                 },
                 appContext: context,
               ),
@@ -89,7 +90,7 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(const CompleteProfileScreen());
+                    Get.to(() => const CompleteProfileScreen());
                   },
                   child: const Text("Next"),
                 ),
