@@ -37,6 +37,7 @@ class _WishScreenState extends State<WishScreen> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: GridView.builder(
+            physics: const BouncingScrollPhysics(),
             itemCount: 20,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,

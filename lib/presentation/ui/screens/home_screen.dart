@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_buy/presentation/state_holders/main_bottom_nav_controller.dart';
+import 'package:infinity_buy/presentation/ui/screens/product_list_screen.dart';
 import 'package:infinity_buy/presentation/ui/utility/assets_path.dart';
 
 import '../widgets/category_item.dart';
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
@@ -40,7 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
               categoryList,
               SectionTitle(
                 title: 'Popular',
-                onTapSeeAll: () {},
+                onTapSeeAll: () {
+                  Get.to(() => const ProductListScreen());
+                },
               ),
               productList,
               const SizedBox(height: 8),

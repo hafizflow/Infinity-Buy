@@ -4,6 +4,14 @@ import 'app_colors.dart';
 
 class AppThemeData {
   static ThemeData lightThemeData = ThemeData(
+    appBarTheme: const AppBarTheme(
+      titleTextStyle: TextStyle(
+        fontSize: 18,
+        color: Colors.black,
+      ),
+      backgroundColor: Colors.white,
+      elevation: 5,
+    ),
     primarySwatch: MaterialColor(
       AppColors.primaryColor.value,
       AppColors.colorSwatch,
