@@ -22,7 +22,9 @@ class ProductCardItem extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
               child: Image.asset(
                 AssetsPath.dummyShoePng,
                 width: 160,
