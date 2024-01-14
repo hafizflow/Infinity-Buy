@@ -99,7 +99,10 @@ class CartProductItem extends StatelessWidget {
                         ValueListenableBuilder(
                           valueListenable: numberOfItem,
                           builder: (context, value, _) {
-                            return itemCount(numberOfItem, value);
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 15.0),
+                              child: itemCount(numberOfItem, value),
+                            );
                           },
                         ),
                       ],
@@ -114,67 +117,64 @@ class CartProductItem extends StatelessWidget {
     );
   }
 
-  Padding itemCount(ValueNotifier<int> numberOfItem, int value) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 15.0),
-      child: Wrap(
-        direction: Axis.horizontal,
-        spacing: 4,
-        children: [
-          InkWell(
-            onTap: () {
-              if (numberOfItem.value > 1) {
-                numberOfItem.value--;
-              }
-            },
-            child: Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(3),
-                ),
-                color: numberOfItem.value == 1
-                    ? AppColors.primaryColor.withOpacity(0.6)
-                    : AppColors.primaryColor,
+  Wrap itemCount(ValueNotifier<int> numberOfItem, int value) {
+    return Wrap(
+      direction: Axis.horizontal,
+      spacing: 4,
+      children: [
+        InkWell(
+          onTap: () {
+            if (numberOfItem.value > 1) {
+              numberOfItem.value--;
+            }
+          },
+          child: Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(3),
               ),
-              child: const Icon(
-                Icons.remove,
-                size: 14,
-                color: Colors.white,
-              ),
+              color: numberOfItem.value == 1
+                  ? AppColors.primaryColor.withOpacity(0.6)
+                  : AppColors.primaryColor,
+            ),
+            child: const Icon(
+              Icons.remove,
+              size: 14,
+              color: Colors.white,
             ),
           ),
-          Text(
-            "$value",
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
+        ),
+        Text(
+          "$value",
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            if (numberOfItem.value < 10) {
+              numberOfItem.value++;
+            }
+          },
+          child: Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(3),
+              ),
+              color: numberOfItem.value == 10
+                  ? AppColors.primaryColor.withOpacity(0.6)
+                  : AppColors.primaryColor,
+            ),
+            child: const Icon(
+              Icons.add,
+              size: 14,
+              color: Colors.white,
             ),
           ),
-          InkWell(
-            onTap: () {
-              if (numberOfItem.value < 10) {
-                numberOfItem.value++;
-              }
-            },
-            child: Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(3),
-                ),
-                color: numberOfItem.value == 10
-                    ? AppColors.primaryColor.withOpacity(0.6)
-                    : AppColors.primaryColor,
-              ),
-              child: const Icon(
-                Icons.add,
-                size: 14,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
