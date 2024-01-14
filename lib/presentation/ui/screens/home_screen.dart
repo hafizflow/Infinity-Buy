@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_buy/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/product_list_screen.dart';
+import 'package:infinity_buy/presentation/ui/screens/review_screen.dart';
 import 'package:infinity_buy/presentation/ui/utility/assets_path.dart';
 
 import '../widgets/category_item.dart';
@@ -136,7 +137,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       actions: [
         CircleIconButton(
-          onTap: () {},
+          onTap: () {
+            Get.to(() => const ReviewScreen());
+          },
           iconData: Icons.person_2_outlined,
         ),
         const SizedBox(width: 10),
