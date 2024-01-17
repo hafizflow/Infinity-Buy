@@ -84,7 +84,7 @@ class ReviewScreen extends StatelessWidget {
 
   Container get reviewCountAndAddReview {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: AppColors.primaryColor.withOpacity(0.15),
         borderRadius: const BorderRadius.only(
@@ -92,44 +92,47 @@ class ReviewScreen extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Reviews",
-                style: TextStyle(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Reviews",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black54),
+                ),
+                SizedBox(width: 8),
+                Text(
+                  "(1000)",
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black54),
-              ),
-              SizedBox(width: 8),
-              Text(
-                "(1000)",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black54,
+                    color: Colors.black54,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: 100,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(8),
-              ),
-              onPressed: () {
-                Get.to(() => const CreateReviewScreen());
-              },
-              child: const Icon(Icons.add, size: 28),
+              ],
             ),
-          )
-        ],
+            SizedBox(
+              width: 70,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(8),
+                ),
+                onPressed: () {
+                  Get.to(() => const CreateReviewScreen());
+                },
+                child: const Icon(Icons.add, size: 28),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
