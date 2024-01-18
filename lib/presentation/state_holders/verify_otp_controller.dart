@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
-import 'package:infinity_buy/data/models/network_caller.dart';
-import 'package:infinity_buy/data/services/response_data.dart';
+import 'package:infinity_buy/data/services/network_caller.dart';
+import 'package:infinity_buy/data/models/response_data.dart';
 import 'package:infinity_buy/data/utility/urls.dart';
+import 'package:infinity_buy/presentation/state_holders/read_profile_data_controller.dart';
 
 class VerifyOtpController extends GetxController {
   bool _otpVerifyInProgress = false;
@@ -21,12 +22,25 @@ class VerifyOtpController extends GetxController {
       Urls.verifyOtp(email, otp),
     );
 
-    _otpVerifyInProgress = true;
+    _otpVerifyInProgress = false;
 
     if (response.isSuccess) {
       final token = response.responseData['data'];
 
-      _shouldNavigateCompleteProfile;
+      await Future.delayed(const Duration(seconds: 1));
+
+      final result =
+          await Get.find<ReadProfileDataController>().readProfileData(token);
+
+      if (result) {
+        _shouldNavigateCompleteProfile =
+            Get.find<ReadProfileDataController>().isProfileCompleted == false;
+      } else {
+        _errorMessage = Get.find<ReadProfileDataController>().errorMessage;
+        update();
+        return false;
+      }
+
       update();
       return true;
     } else {

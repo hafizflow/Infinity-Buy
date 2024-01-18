@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
+import 'package:infinity_buy/data/models/profile.dart';
 
-import '../../data/models/network_caller.dart';
-import '../../data/services/response_data.dart';
+import '../../data/services/network_caller.dart';
+import '../../data/models/response_data.dart';
 import '../../data/utility/urls.dart';
 
 class ReadProfileDataController extends GetxController {
@@ -10,6 +11,12 @@ class ReadProfileDataController extends GetxController {
 
   String _errorMessage = '';
   String get errorMessage => _errorMessage;
+
+  Profile _profile = Profile();
+  Profile get profile => _profile;
+
+  bool _isProfileCompleted = false;
+  bool get isProfileCompleted => _isProfileCompleted;
 
   Future<bool> readProfileData(String token) async {
     _otpVerifyInProgress = true;
@@ -26,12 +33,13 @@ class ReadProfileDataController extends GetxController {
       final profileData = response.responseData['data'];
 
       if (profileData == null) {
-        update();
-        return false;
+        _isProfileCompleted = false;
       } else {
-        update();
-        return true;
+        _profile = Profile.fromJson(profileData[0]);
+        _isProfileCompleted = true;
       }
+      update();
+      return true;
     } else {
       _errorMessage = response.errorMessage;
       update();

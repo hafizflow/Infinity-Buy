@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:infinity_buy/data/models/network_caller.dart';
-import 'package:infinity_buy/data/services/response_data.dart';
+import 'package:infinity_buy/data/services/network_caller.dart';
+import 'package:infinity_buy/data/models/response_data.dart';
 
 import '../../data/utility/urls.dart';
 

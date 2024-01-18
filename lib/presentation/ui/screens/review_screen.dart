@@ -58,14 +58,14 @@ class ReviewScreen extends StatelessWidget {
                         size: 18,
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     const Text(
                       "Asn Masum Khan",
                       style: TextStyle(fontSize: 16),
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 const Text(
                   "If you're visiting this page, you're likely here because you're searching for a random sentence. Sometimes a random word just isn't enough, and that is where the random sentence generator comes into play.",
                   style: TextStyle(

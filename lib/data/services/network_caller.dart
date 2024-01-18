@@ -3,20 +3,22 @@ import 'dart:developer';
 
 import 'package:http/http.dart';
 
-import '../services/response_data.dart';
+import '../models/response_data.dart';
 
 class NetworkCaller {
   Future<ResponseData> getRequest(String url, {String? token}) async {
-    log(url);
+    log("Url: $url");
+    log("token: ${token.toString()}");
 
     final Response response = await get(Uri.parse(url), headers: {
       'token': token.toString(),
       'Content-type': 'application/json',
     });
+
     if (response.statusCode == 200) {
       // for better understanding
-      log(response.statusCode.toString());
-      log(response.body.toString());
+      log("StatusCode: ${response.statusCode.toString()}");
+      log("Body: ${response.body.toString()}");
 
       // decode json response into dart
       final decodedResponse = jsonDecode(response.body);

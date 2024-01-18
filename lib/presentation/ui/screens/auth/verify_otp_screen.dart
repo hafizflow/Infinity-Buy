@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_buy/presentation/state_holders/verify_otp_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/auth/complete_profile_screen.dart';
+import 'package:infinity_buy/presentation/ui/screens/main_bottom_nav_screen.dart';
 import 'package:infinity_buy/presentation/ui/widgets/app_logo.dart';
 import 'package:infinity_buy/presentation/ui/widgets/center_circular_progress_indicator.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -112,11 +113,19 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                                 .verifyOTP(widget.email, _otpTEController.text);
 
                             if (response) {
-                              Get.to(() => const CompleteProfileScreen());
+                              log("Response: ${response.toString()}");
+                              if (verifyOtpController
+                                  .shouldNavigateCompleteProfile) {
+                                Get.to(() => const CompleteProfileScreen());
+                              } else {
+                                Get.to(() => const MainBottomNavScreen());
+                              }
                             } else {
                               Get.showSnackbar(GetSnackBar(
                                 title: 'OTP verification failed',
                                 message: verifyOtpController.errorMessage,
+                                duration: const Duration(seconds: 2),
+                                isDismissible: true,
                               ));
                             }
                           }
