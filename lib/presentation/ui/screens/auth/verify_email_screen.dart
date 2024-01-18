@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:infinity_buy/presentation/state_holders/send_email_otp_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/auth/verify_otp_screen.dart';
 import 'package:infinity_buy/presentation/ui/widgets/app_logo.dart';
+import 'package:infinity_buy/presentation/ui/widgets/center_circular_progress_indicator.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   const VerifyEmailScreen({super.key});
@@ -50,9 +51,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     width: double.infinity,
                     child: Visibility(
                       visible: controller.inProgress == false,
-                      replacement: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                      replacement: const CenterCircularProgressIndicator(),
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
@@ -60,7 +59,9 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                                 .sendOtpToEmail(_emailTEController.text.trim());
 
                             if (result) {
-                              Get.to(() => const VerifyOTPScreen());
+                              Get.to(() => VerifyOTPScreen(
+                                    email: _emailTEController.text.trim(),
+                                  ));
                             } else {
                               Get.showSnackbar(
                                 GetSnackBar(
