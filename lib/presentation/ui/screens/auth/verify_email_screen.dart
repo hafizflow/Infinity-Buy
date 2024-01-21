@@ -105,4 +105,10 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     }
     return null;
   }
+
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    super.dispose();
+  }
 }
