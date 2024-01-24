@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_buy/presentation/state_holders/auth_controller.dart';
+import 'package:infinity_buy/presentation/state_holders/category_controller.dart';
+import 'package:infinity_buy/presentation/state_holders/home_banner_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/auth/verify_email_screen.dart';
 import 'package:infinity_buy/presentation/ui/screens/product_list_screen.dart';
 import 'package:infinity_buy/presentation/ui/screens/review_screen.dart';
 import 'package:infinity_buy/presentation/ui/utility/assets_path.dart';
+import 'package:infinity_buy/presentation/ui/widgets/center_circular_progress_indicator.dart';
 
 import '../widgets/category_item.dart';
 import '../widgets/home/circle_icon_button.dart';
@@ -34,7 +37,20 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 8),
               searchTextField,
               const SizedBox(height: 16),
-              const BannerCarousel(),
+              SizedBox(
+                height: 210,
+                child: GetBuilder<HomeBannerController>(
+                    builder: (homeBannerController) {
+                  return Visibility(
+                    visible: homeBannerController.inProgress == false,
+                    replacement: const CenterCircularProgressIndicator(),
+                    child: BannerCarousel(
+                      bannerList:
+                          homeBannerController.bannerListModel.bannerList ?? [],
+                    ),
+                  );
+                }),
+              ),
               const SizedBox(height: 16),
               SectionTitle(
                 title: 'All Categories',
@@ -72,18 +88,28 @@ class _HomeScreenState extends State<HomeScreen> {
   SizedBox get categoryList {
     return SizedBox(
       height: 130,
-      child: ListView.separated(
-        primary: false,
-        shrinkWrap: true,
-        itemCount: 10,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return const CategoryItem();
-        },
-        separatorBuilder: (_, __) {
-          return const SizedBox(width: 14);
-        },
-      ),
+      child: GetBuilder<CategoryController>(builder: (categoryController) {
+        return Visibility(
+          visible: categoryController.inProgress == false,
+          replacement: const CenterCircularProgressIndicator(),
+          child: ListView.separated(
+            primary: false,
+            shrinkWrap: true,
+            itemCount:
+                categoryController.categoryListModel.categoryList?.length ?? 0,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return CategoryItem(
+                categoryListItem:
+                    categoryController.categoryListModel.categoryList![index],
+              );
+            },
+            separatorBuilder: (_, __) {
+              return const SizedBox(width: 14);
+            },
+          ),
+        );
+      }),
     );
   }
 

@@ -2,11 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinity_buy/presentation/state_holders/category_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/home_screen.dart';
 import 'package:infinity_buy/presentation/ui/screens/wish_screen.dart';
 import 'package:infinity_buy/presentation/ui/utility/app_colors.dart';
 
+import '../../state_holders/home_banner_controller.dart';
 import 'cart_screen.dart';
 import 'category_screen.dart';
 
@@ -24,6 +26,13 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
     const CartScreen(),
     const WishScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    Get.find<HomeBannerController>().getBannerList();
+    Get.find<CategoryController>().getCategoryList();
+  }
 
   @override
   Widget build(BuildContext context) {

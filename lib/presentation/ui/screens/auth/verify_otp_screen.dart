@@ -116,9 +116,9 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                               log("Response: ${response.toString()}");
                               if (verifyOtpController
                                   .shouldNavigateCompleteProfile) {
-                                Get.to(() => const CompleteProfileScreen());
+                                Get.offAll(() => const CompleteProfileScreen());
                               } else {
-                                Get.to(() => const MainBottomNavScreen());
+                                Get.offAll(() => const MainBottomNavScreen());
                               }
                             } else {
                               Get.showSnackbar(GetSnackBar(

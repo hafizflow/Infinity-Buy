@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:infinity_buy/data/models/create_profile_params.dart';
 import 'package:infinity_buy/presentation/state_holders/auth_controller.dart';
 
 import '../../data/models/profile.dart';
@@ -17,28 +18,14 @@ class CompleteProfileController extends GetxController {
   bool get inProgress => _inProgress;
 
   Future<bool> createProfileData(
-    String token,
-    String firstName,
-    String lastName,
-    String mobile,
-    String city,
-    String shippingAddress,
-  ) async {
+      String token, CreateProfileParams params) async {
     _inProgress = true;
     update();
-
-    Map<String, dynamic> inputParams = {
-      "firstName": firstName,
-      "lastName": lastName,
-      "mobile": mobile,
-      "city": city,
-      "shippingAddress": shippingAddress,
-    };
 
     final ResponseData response = await NetworkCaller().postRequest(
       Urls.createProfile,
       token: token,
-      body: inputParams,
+      body: params.toJson(),
     );
 
     _inProgress = false;
