@@ -6,18 +6,22 @@ import 'package:infinity_buy/presentation/ui/screens/product_list_screen.dart';
 import '../utility/app_colors.dart';
 
 class CategoryItem extends StatelessWidget {
-  final CategoryListItem categoryListItem;
+  final CategoryListItem category;
   const CategoryItem({
     super.key,
-    required this.categoryListItem,
+    required this.category,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() =>
-            ProductListScreen(category: categoryListItem.categoryName ?? ''));
+        Get.to(
+          () => ProductListScreen(
+            category: category.categoryName ?? '',
+            categoryId: category.id,
+          ),
+        );
       },
       child: Column(
         children: [
@@ -27,13 +31,13 @@ class CategoryItem extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Image.network(
-                categoryListItem.categoryImg ?? '',
+                category.categoryImg ?? '',
                 width: 50,
               ),
             ),
           ),
           Text(
-            categoryListItem.categoryName ?? '',
+            category.categoryName ?? '',
             style: const TextStyle(
               color: AppColors.primaryColor,
               fontWeight: FontWeight.w600,

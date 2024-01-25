@@ -50,7 +50,6 @@ class _BannerCarouselState extends State<BannerCarousel> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         productImage(banner),
-                        const SizedBox(width: 8),
                         productNameAndBuyNowButton(banner),
                       ],
                     ),
@@ -96,7 +95,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 152,
+          width: 155,
           child: Text(
             banner.title ?? '',
             style: const TextStyle(
@@ -129,7 +128,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
 
   Padding productImage(BannerItem banner) {
     return Padding(
-      padding: const EdgeInsets.only(top: 24, bottom: 24),
+      padding: const EdgeInsets.symmetric(vertical: 32),
       child: Image.network(banner.image ?? ''),
     );
   }

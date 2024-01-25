@@ -4,12 +4,16 @@ import 'package:infinity_buy/presentation/state_holders/auth_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/category_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/home_banner_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/main_bottom_nav_controller.dart';
+import 'package:infinity_buy/presentation/state_holders/popular_product_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/auth/verify_email_screen.dart';
 import 'package:infinity_buy/presentation/ui/screens/product_list_screen.dart';
 import 'package:infinity_buy/presentation/ui/screens/review_screen.dart';
 import 'package:infinity_buy/presentation/ui/utility/assets_path.dart';
 import 'package:infinity_buy/presentation/ui/widgets/center_circular_progress_indicator.dart';
 
+import '../../../data/models/product_model.dart';
+import '../../state_holders/new_product_controller.dart';
+import '../../state_holders/special_product_controller.dart';
 import '../widgets/category_item.dart';
 import '../widgets/home/circle_icon_button.dart';
 import '../widgets/home/banner_carousel.dart';
@@ -65,19 +69,44 @@ class _HomeScreenState extends State<HomeScreen> {
                   Get.to(() => const ProductListScreen());
                 },
               ),
-              productList,
+              GetBuilder<PopularProductController>(
+                  builder: (popularProductController) {
+                return Visibility(
+                  visible: popularProductController.inProgress == false,
+                  replacement: const CenterCircularProgressIndicator(),
+                  child: productList(
+                      popularProductController.productListModel.productList ??
+                          []),
+                );
+              }),
               const SizedBox(height: 8),
               SectionTitle(
                 title: 'Special',
                 onTapSeeAll: () {},
               ),
-              productList,
+              GetBuilder<SpecialProductController>(
+                  builder: (specialProductController) {
+                return Visibility(
+                  visible: specialProductController.inProgress == false,
+                  replacement: const CenterCircularProgressIndicator(),
+                  child: productList(
+                      specialProductController.productListModel.productList ??
+                          []),
+                );
+              }),
               const SizedBox(height: 8),
               SectionTitle(
                 title: 'New',
                 onTapSeeAll: () {},
               ),
-              productList,
+              GetBuilder<NewProductController>(builder: (newProductController) {
+                return Visibility(
+                  visible: newProductController.inProgress == false,
+                  replacement: const CenterCircularProgressIndicator(),
+                  child: productList(
+                      newProductController.productListModel.productList ?? []),
+                );
+              }),
             ],
           ),
         ),
@@ -100,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return CategoryItem(
-                categoryListItem:
+                category:
                     categoryController.categoryListModel.categoryList![index],
               );
             },
@@ -113,16 +142,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  SizedBox get productList {
+  SizedBox productList(List<ProductModel> productList) {
     return SizedBox(
       height: 190,
       child: ListView.separated(
         primary: false,
         shrinkWrap: true,
-        itemCount: 10,
+        itemCount: productList.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return const ProductCardItem();
+          return ProductCardItem(product: productList[index]);
         },
         separatorBuilder: (_, __) {
           return const SizedBox(width: 8);

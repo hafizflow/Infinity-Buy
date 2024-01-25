@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:infinity_buy/presentation/ui/widgets/product_card_item.dart';
 
 import '../../state_holders/main_bottom_nav_controller.dart';
 
@@ -46,7 +45,8 @@ class _WishScreenState extends State<WishScreen> {
               crossAxisSpacing: 4,
             ),
             itemBuilder: (context, index) {
-              return const FittedBox(child: ProductCardItem());
+              // return const FittedBox(child: ProductCardItem(product: null,));
+              return null;
             },
           ),
         ),

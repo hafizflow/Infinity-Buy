@@ -62,7 +62,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     itemBuilder: (context, index) {
                       return FittedBox(
                         child: CategoryItem(
-                          categoryListItem: categoryController
+                          category: categoryController
                               .categoryListModel.categoryList![index],
                         ),
                       );

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinity_buy/data/models/product_model.dart';
 import 'package:infinity_buy/presentation/ui/screens/product_details_screen.dart';
 
 import '../utility/app_colors.dart';
-import '../utility/assets_path.dart';
 
 class ProductCardItem extends StatelessWidget {
   const ProductCardItem({
     super.key,
+    required this.product,
   });
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +35,11 @@ class ProductCardItem extends StatelessWidget {
                   topLeft: Radius.circular(16),
                   topRight: Radius.circular(16),
                 ),
-                child: Image.asset(
-                  AssetsPath.dummyShoePng,
+                child: Image.network(
+                  product.image ?? '',
                   width: 160,
                   height: 120,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.scaleDown,
                 ),
               ),
               Padding(
@@ -45,11 +48,11 @@ class ProductCardItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Nike Shoe 30P 2024 Editions",
+                    Text(
+                      product.title ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                         color: Colors.black54,
@@ -58,24 +61,24 @@ class ProductCardItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "\$100",
-                          style: TextStyle(
+                        Text(
+                          "\$${product.price ?? 0}",
+                          style: const TextStyle(
                             color: AppColors.primaryColor,
                             fontSize: 12,
                           ),
                         ),
-                        const Wrap(
+                        Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.star,
                               size: 14,
                               color: Colors.amber,
                             ),
                             Text(
-                              "4.4",
-                              style: TextStyle(
+                              '${product.star ?? 0}',
+                              style: const TextStyle(
                                   color: Colors.black87,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600),
