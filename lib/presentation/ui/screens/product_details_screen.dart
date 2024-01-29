@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_buy/data/models/product_details_data.dart';
-import 'package:infinity_buy/data/models/product_details_model.dart';
-import 'package:infinity_buy/data/models/product_model.dart';
 import 'package:infinity_buy/presentation/state_holders/product_details_controller.dart';
 import 'package:infinity_buy/presentation/ui/widgets/center_circular_progress_indicator.dart';
 import 'package:infinity_buy/presentation/ui/widgets/product_details/product_image_carousel.dart';
