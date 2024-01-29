@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:infinity_buy/data/models/product_details_data.dart';
+import 'package:infinity_buy/data/models/product_details_model.dart';
+import 'package:infinity_buy/data/models/product_model.dart';
+import 'package:infinity_buy/presentation/state_holders/product_details_controller.dart';
+import 'package:infinity_buy/presentation/ui/widgets/center_circular_progress_indicator.dart';
 import 'package:infinity_buy/presentation/ui/widgets/product_details/product_image_carousel.dart';
 
 import '../utility/app_colors.dart';
@@ -6,7 +12,12 @@ import '../widgets/product_details/color_selector.dart';
 import '../widgets/product_details/size_selector.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({
+    super.key,
+    required this.productId,
+  });
+
+  final int productId;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -30,7 +41,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     'XXL',
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    Get.find<ProductDetailsController>()
+        .getProductDetails(productId: widget.productId);
+  }
+
   bool _isLiked = false;
+
+  String? _selectedSize;
+  String? _selectedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -38,25 +59,38 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       appBar: AppBar(
         title: const Text("Product Details"),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const ProductImageCarousel(),
-                  productDetailsBody,
-                ],
+      body: GetBuilder<ProductDetailsController>(builder: (controller) {
+        return Visibility(
+          visible: controller.inProgress == false,
+          replacement: const CenterCircularProgressIndicator(),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ProductImageCarousel(
+                        urls: [
+                          controller.productDetails.img1 ?? '',
+                          controller.productDetails.img2 ?? '',
+                          controller.productDetails.img3 ?? '',
+                          controller.productDetails.img4 ?? '',
+                        ],
+                      ),
+                      productDetailsBody(controller.productDetails),
+                    ],
+                  ),
+                ),
               ),
-            ),
+              priceAndAddToCurtSection,
+            ],
           ),
-          priceAndAddToCurtSection,
-        ],
-      ),
+        );
+      }),
     );
   }
 
-  Padding get productDetailsBody {
+  Padding productDetailsBody(ProductDetailsData productDetails) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -64,10 +98,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         children: [
           Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
-                  "Happy New Year Special Deal Save 30%",
-                  style: TextStyle(
+                  productDetails.product?.title ?? '',
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
@@ -95,7 +129,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
           ColorSelector(
             colors: colors,
-            onChange: (selectedColor) {},
+            onChange: (selectedColor) {
+              _selectedColor = selectedColor.toString();
+            },
           ),
           const SizedBox(height: 16),
           const Text(
@@ -107,7 +143,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
           ),
           const SizedBox(height: 8),
-          SizeSelector(sizes: sizes, onChange: (selectedSize) {}),
+          SizeSelector(
+              sizes: productDetails.size?.split(',') ?? [],
+              onChange: (selectedSize) {}),
           const SizedBox(height: 16),
           const Text(
             "Description",
@@ -118,9 +156,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            "In the quiet solitude of the moonlit night, a gentle breeze whispered through the rustling leaves, carrying with it the fragrant aroma of blooming flowers. The ethereal glow of the stars painted a celestial tapestry across the vast expanse of the night sky, creating a breathtaking spectacle that captivated the senses. As the world slept beneath this cosmic masterpiece, a lone owl hooted in the distance, its haunting melody echoing through the stillness.",
-            style: TextStyle(
+          Text(
+            productDetails.des ?? '',
+            style: const TextStyle(
               color: Colors.grey,
             ),
           ),
@@ -132,18 +170,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Row get reviewAndRating {
     return Row(
       children: [
-        const Wrap(
+        Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           spacing: 3,
           children: [
-            Icon(
+            const Icon(
               Icons.star,
               size: 22,
               color: Colors.amber,
             ),
             Text(
-              "4.4",
-              style: TextStyle(
+              ' ',
+              style: const TextStyle(
                   color: Colors.black87,
                   fontSize: 18,
                   fontWeight: FontWeight.w400),
@@ -197,10 +235,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Price",
                 style: TextStyle(
                   fontSize: 12,
@@ -208,8 +246,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               Text(
-                "\$100.00",
-                style: TextStyle(
+                '',
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.primaryColor,

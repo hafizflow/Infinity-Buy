@@ -7,6 +7,7 @@ import 'package:infinity_buy/presentation/state_holders/main_bottom_nav_controll
 import 'package:infinity_buy/presentation/state_holders/new_product_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/popular_product_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/product_controller.dart';
+import 'package:infinity_buy/presentation/state_holders/product_details_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/read_profile_data_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/send_email_otp_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/special_product_controller.dart';
@@ -27,5 +28,6 @@ class ControllerBinder extends Bindings {
     Get.put(NewProductController());
     Get.put(SpecialProductController());
     Get.put(ProductController());
+    Get.put(ProductDetailsController());
   }
 }

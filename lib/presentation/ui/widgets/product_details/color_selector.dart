@@ -35,7 +35,6 @@ class _ColorSelectorState extends State<ColorSelector> {
                 widget.onChange(c);
                 if (mounted) {
                   setState(() {});
-                  // log(selectedColor.toString());
                 }
               },
               borderRadius: BorderRadius.circular(14),

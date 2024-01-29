@@ -17,7 +17,11 @@ class ProductCardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(() => const ProductDetailsScreen());
+        Get.to(
+          () => ProductDetailsScreen(
+            productId: product.id!,
+          ),
+        );
       },
       borderRadius: BorderRadius.circular(16),
       child: SizedBox(
@@ -29,17 +33,21 @@ class ProductCardItem extends StatelessWidget {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(16),
                   topRight: Radius.circular(16),
                 ),
-                child: Image.network(
-                  product.image ?? '',
-                  width: 160,
-                  height: 120,
-                  fit: BoxFit.scaleDown,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Image.network(
+                    product.image ?? '',
+                    width: 160,
+                    height: 120,
+                    fit: BoxFit.scaleDown,
+                  ),
                 ),
               ),
               Padding(
