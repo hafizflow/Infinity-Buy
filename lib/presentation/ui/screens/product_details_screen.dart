@@ -23,21 +23,6 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   ValueNotifier<int> numberOfItem = ValueNotifier(1);
-  List<Color> colors = [
-    Colors.black,
-    Colors.grey.shade400,
-    Colors.brown,
-    Colors.teal,
-    Colors.grey.shade600,
-  ];
-
-  List<String> sizes = [
-    'S',
-    'M',
-    'L',
-    'XL',
-    'XXL',
-  ];
 
   @override
   void initState() {
@@ -115,7 +100,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ],
           ),
           const SizedBox(height: 8),
-          reviewAndRating,
+          reviewAndRating(productDetails.product?.star ?? 0),
           const SizedBox(height: 16),
           const Text(
             "Color",
@@ -126,7 +111,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
           ),
           ColorSelector(
-            colors: colors,
+            colors: productDetails.color
+                    ?.split(',')
+                    .map((e) => getColorFromString(e))
+                    .toList() ??
+                [],
             onChange: (selectedColor) {
               _selectedColor = selectedColor.toString();
             },
@@ -143,7 +132,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           const SizedBox(height: 8),
           SizeSelector(
               sizes: productDetails.size?.split(',') ?? [],
-              onChange: (selectedSize) {}),
+              onChange: (selectedSize) {
+                _selectedColor = selectedSize;
+              }),
           const SizedBox(height: 16),
           const Text(
             "Description",
@@ -158,6 +149,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             productDetails.des ?? '',
             style: const TextStyle(
               color: Colors.grey,
+              fontSize: 12,
             ),
           ),
         ],
@@ -165,7 +157,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Row get reviewAndRating {
+  Row reviewAndRating(double rating) {
     return Row(
       children: [
         Wrap(
@@ -178,7 +170,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               color: Colors.amber,
             ),
             Text(
-              ' ',
+              rating.toStringAsPrecision(2),
               style: const TextStyle(
                   color: Colors.black87,
                   fontSize: 18,
@@ -322,5 +314,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         ),
       ],
     );
+  }
+
+  Color getColorFromString(String colorCode) {
+    String code = colorCode.replaceAll('#', '');
+    String hexCode = 'FF$code';
+    return Color(int.parse('0x$hexCode'));
   }
 }
