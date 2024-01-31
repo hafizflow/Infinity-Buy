@@ -17,12 +17,13 @@ class SizeSelector extends StatefulWidget {
 }
 
 class _SizeSelectorState extends State<SizeSelector> {
-  late String selectedSize;
+  late String _selectedSize;
 
   @override
   void initState() {
     super.initState();
-    selectedSize = widget.sizes.last;
+    _selectedSize = widget.sizes.first;
+    widget.onChange(_selectedSize);
   }
 
   @override
@@ -33,7 +34,7 @@ class _SizeSelectorState extends State<SizeSelector> {
           .map(
             (c) => InkWell(
               onTap: () {
-                selectedSize = c;
+                _selectedSize = c;
                 widget.onChange(c);
                 if (mounted) {
                   setState(() {});
@@ -46,7 +47,7 @@ class _SizeSelectorState extends State<SizeSelector> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: Colors.grey),
-                  color: selectedSize == c ? AppColors.primaryColor : null,
+                  color: _selectedSize == c ? AppColors.primaryColor : null,
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 14,
@@ -55,7 +56,7 @@ class _SizeSelectorState extends State<SizeSelector> {
                 child: Text(
                   c,
                   style: TextStyle(
-                    color: selectedSize == c ? Colors.white : Colors.black,
+                    color: _selectedSize == c ? Colors.white : Colors.black,
                     fontSize: 12,
                   ),
                 ),

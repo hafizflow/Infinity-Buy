@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_buy/data/models/product_details_data.dart';
+import 'package:infinity_buy/presentation/state_holders/add_to_cart_controller.dart';
+import 'package:infinity_buy/presentation/state_holders/auth_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/product_details_controller.dart';
+import 'package:infinity_buy/presentation/ui/screens/auth/verify_email_screen.dart';
 import 'package:infinity_buy/presentation/ui/widgets/center_circular_progress_indicator.dart';
 import 'package:infinity_buy/presentation/ui/widgets/product_details/product_image_carousel.dart';
 
@@ -42,9 +45,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       appBar: AppBar(
         title: const Text("Product Details"),
       ),
-      body: GetBuilder<ProductDetailsController>(builder: (controller) {
+      body: GetBuilder<ProductDetailsController>(
+          builder: (productDetailsController) {
+        if (productDetailsController.inProgress) {
+          return const CenterCircularProgressIndicator();
+        }
         return Visibility(
-          visible: controller.inProgress == false,
+          visible: productDetailsController.inProgress == false,
           replacement: const CenterCircularProgressIndicator(),
           child: Column(
             children: [
@@ -54,13 +61,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     children: [
                       ProductImageCarousel(
                         urls: [
-                          controller.productDetails.img1 ?? '',
-                          controller.productDetails.img2 ?? '',
-                          controller.productDetails.img3 ?? '',
-                          controller.productDetails.img4 ?? '',
+                          productDetailsController.productDetails.img1 ?? '',
+                          productDetailsController.productDetails.img2 ?? '',
+                          productDetailsController.productDetails.img3 ?? '',
+                          productDetailsController.productDetails.img4 ?? '',
                         ],
                       ),
-                      productDetailsBody(controller.productDetails),
+                      productDetailsBody(
+                          productDetailsController.productDetails),
                     ],
                   ),
                 ),
@@ -118,6 +126,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 [],
             onChange: (selectedColor) {
               _selectedColor = selectedColor.toString();
+
+              print(_selectedColor);
             },
           ),
           const SizedBox(height: 16),
@@ -133,7 +143,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           SizeSelector(
               sizes: productDetails.size?.split(',') ?? [],
               onChange: (selectedSize) {
-                _selectedColor = selectedSize;
+                _selectedSize = selectedSize;
               }),
           const SizedBox(height: 16),
           const Text(
@@ -225,10 +235,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Price",
                 style: TextStyle(
                   fontSize: 12,
@@ -236,8 +246,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               Text(
-                '',
-                style: const TextStyle(
+                '100.00',
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.primaryColor,
@@ -247,9 +257,51 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
           SizedBox(
             width: 100,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: const Text("Add to Cart"),
+            child: GetBuilder<AddToCartController>(
+              builder: (addToCartController) {
+                return Visibility(
+                  visible: addToCartController.inProgress == false,
+                  replacement: const CenterCircularProgressIndicator(),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (_selectedColor != null && _selectedSize != null) {
+                        if (Get.find<AuthController>().isTokenNotNull) {
+                          _selectedColor =
+                              colorToHashColorCode(_selectedColor!);
+                          bool response = await addToCartController.addToCart(
+                            widget.productId,
+                            _selectedSize!,
+                            _selectedColor!,
+                          );
+                          if (response) {
+                            Get.showSnackbar(const GetSnackBar(
+                              title: "Succeed",
+                              message: "Successfully added to cart",
+                              duration: Duration(seconds: 2),
+                            ));
+                          } else {
+                            Get.showSnackbar(GetSnackBar(
+                              title: "Failed",
+                              message: addToCartController.errorMessage,
+                              duration: const Duration(seconds: 2),
+                              backgroundColor: Colors.red,
+                            ));
+                          }
+                        } else {
+                          Get.to(() => const VerifyEmailScreen());
+                        }
+                      } else {
+                        Get.showSnackbar(const GetSnackBar(
+                          title: "Add to curt failed",
+                          message: "Please select color and size",
+                          duration: Duration(seconds: 2),
+                        ));
+                      }
+                    },
+                    child: const Text("Add to Cart"),
+                  ),
+                );
+              },
             ),
           )
         ],
@@ -287,7 +339,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         ),
         Text(
           "$value",
-          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+          ),
         ),
         InkWell(
           onTap: () {
@@ -320,5 +375,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     String code = colorCode.replaceAll('#', '');
     String hexCode = 'FF$code';
     return Color(int.parse('0x$hexCode'));
+  }
+
+  String colorToHashColorCode(String colorCode) {
+    return colorCode
+        .toString()
+        .replaceAll('0xff', '#')
+        .replaceAll('Color(', '')
+        .replaceAll(')', '');
   }
 }

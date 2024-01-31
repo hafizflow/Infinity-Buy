@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart';
+import 'package:infinity_buy/presentation/state_holders/auth_controller.dart';
 
 import '../models/response_data.dart';
 
@@ -53,7 +54,7 @@ class NetworkCaller {
 
     final Response response =
         await post(Uri.parse(url), body: jsonEncode(body), headers: {
-      'token': token.toString(),
+      'token': AuthController.token.toString(),
       'Content-type': 'application/json',
     });
 

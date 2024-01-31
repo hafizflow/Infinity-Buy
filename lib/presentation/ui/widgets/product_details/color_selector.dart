@@ -15,12 +15,13 @@ class ColorSelector extends StatefulWidget {
 }
 
 class _ColorSelectorState extends State<ColorSelector> {
-  late Color selectedColor;
+  late Color _selectedColor;
 
   @override
   void initState() {
     super.initState();
-    selectedColor = widget.colors.first;
+    _selectedColor = widget.colors.first;
+    widget.onChange(_selectedColor);
   }
 
   @override
@@ -31,7 +32,7 @@ class _ColorSelectorState extends State<ColorSelector> {
           .map(
             (c) => InkWell(
               onTap: () {
-                selectedColor = c;
+                _selectedColor = c;
                 widget.onChange(c);
                 if (mounted) {
                   setState(() {});
@@ -43,7 +44,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                 child: CircleAvatar(
                   backgroundColor: c,
                   radius: 14,
-                  child: selectedColor == c
+                  child: _selectedColor == c
                       ? const Icon(
                           Icons.done,
                           color: Colors.white,

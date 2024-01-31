@@ -18,4 +18,6 @@ class Urls {
 
   static String productDetails(int productId) =>
       '$_baseUrl/ProductDetailsById/$productId';
+
+  static String createCart = '$_baseUrl/CreateCartList';
 }
