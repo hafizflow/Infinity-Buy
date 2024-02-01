@@ -39,7 +39,10 @@ class _ProductImageCarouselState extends State<ProductImageCarousel> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: Colors.grey,
-                    image: DecorationImage(image: NetworkImage(url)),
+                    image: DecorationImage(
+                      image: NetworkImage(url),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 );
               },

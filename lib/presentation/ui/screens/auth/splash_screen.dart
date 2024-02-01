@@ -5,6 +5,8 @@ import 'package:infinity_buy/presentation/ui/screens/main_bottom_nav_screen.dart
 import 'package:infinity_buy/presentation/ui/utility/app_colors.dart';
 import 'package:infinity_buy/presentation/ui/widgets/app_logo.dart';
 
+import '../../../state_holders/auth_controller.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -21,12 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void moveToNextScreen() async {
     await Future.delayed(const Duration(seconds: 2));
-    // final bool isLoggedIn = await Get.find<AuthController>().isLoggedIn();
-    // if (isLoggedIn) {
+    await Get.find<AuthController>().initialize();
     Get.offAll(() => const MainBottomNavScreen());
-    // } else {
-    //   Get.offAll(() => const VerifyEmailScreen());
-    // }
   }
 
   @override

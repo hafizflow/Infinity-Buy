@@ -194,8 +194,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       actions: [
         CircleIconButton(
-          onTap: () {
-            Get.find<AuthController>().clearAuthData();
+          onTap: () async {
+            await AuthController.clearAuthData();
             Get.offAll(() => const VerifyEmailScreen());
           },
           iconData: Icons.person_2_outlined,

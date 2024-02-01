@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:infinity_buy/presentation/state_holders/auth_controller.dart';
 
 class MainBottomNavController extends GetxController {
   int _selectedIndex = 0;
@@ -8,6 +9,12 @@ class MainBottomNavController extends GetxController {
   void changeIndex(int index) {
     if (_selectedIndex == index) {
       return;
+    }
+    if (index == 2 || index == 3) {
+      if (Get.find<AuthController>().isTokenNotNull == false) {
+        AuthController.goToLogin();
+        return;
+      }
     }
     _selectedIndex = index;
     update();

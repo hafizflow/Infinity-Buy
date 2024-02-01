@@ -32,21 +32,21 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
 
   @override
   void initState() {
-    startTimer();
+    // startTimer();
     super.initState();
   }
 
-  void startTimer() {
-    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      resendTime--;
-      if (mounted) {
-        setState(() {});
-      }
-      if (resendTime < 1) {
-        countdownTimer.cancel();
-      }
-    });
-  }
+  // void startTimer() {
+  //   countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+  //     resendTime--;
+  //     if (mounted) {
+  //       setState(() {});
+  //     }
+  //     if (resendTime < 1) {
+  //       countdownTimer.cancel();
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                 const SizedBox(height: 24),
                 PinCodeTextField(
                   controller: _otpTEController,
-                  length: 4,
+                  length: 6,
                   obscureText: false,
                   animationType: AnimationType.fade,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -81,8 +81,8 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                   pinTheme: PinTheme(
                     shape: PinCodeFieldShape.box,
                     borderRadius: BorderRadius.circular(5),
-                    fieldHeight: 50,
-                    fieldWidth: 55,
+                    fieldHeight: 60,
+                    fieldWidth: 45,
                     activeFillColor: Colors.transparent,
                     inactiveFillColor: Colors.transparent,
                     inactiveColor: AppColors.primaryColor,
@@ -126,6 +126,7 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                                 message: verifyOtpController.errorMessage,
                                 duration: const Duration(seconds: 2),
                                 isDismissible: true,
+                                backgroundColor: Colors.red,
                               ));
                             }
                           }
@@ -166,10 +167,4 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
       ),
     );
   }
-
-  // @override
-  // void dispose() {
-  //   _otpTEController.dispose();
-  //   super.dispose();
-  // }
 }

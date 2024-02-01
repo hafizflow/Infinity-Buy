@@ -5,14 +5,14 @@ import 'package:infinity_buy/presentation/ui/utility/app_colors.dart';
 
 import '../widgets/cart_product_item.dart';
 
-class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+class CartListScreen extends StatefulWidget {
+  const CartListScreen({super.key});
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
+  State<CartListScreen> createState() => _CartListScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _CartListScreenState extends State<CartListScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(

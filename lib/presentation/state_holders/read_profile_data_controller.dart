@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:infinity_buy/data/models/profile.dart';
 
@@ -31,11 +33,12 @@ class ReadProfileDataController extends GetxController {
 
     if (response.isSuccess) {
       final profileData = response.responseData['data'];
+      log(profileData.toString());
 
-      if (profileData.isEmpty) {
+      if (profileData == null) {
         _isProfileCompleted = false;
       } else {
-        _profile = Profile.fromJson(profileData[0]);
+        _profile = Profile.fromJson(profileData);
         _isProfileCompleted = true;
       }
       update();

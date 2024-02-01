@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:infinity_buy/data/services/network_caller.dart';
 import 'package:infinity_buy/data/models/response_data.dart';
@@ -30,8 +32,11 @@ class VerifyOtpController extends GetxController {
 
     if (response.isSuccess) {
       _token = response.responseData['data'];
+      log("Response: $response");
+      log("Token: $_token");
+      log("statusCode: ${response.statusCode}");
 
-      await Future.delayed(const Duration(seconds: 3));
+      // await Future.delayed(const Duration(seconds: 3));
 
       final result =
           await Get.find<ReadProfileDataController>().readProfileData(token);

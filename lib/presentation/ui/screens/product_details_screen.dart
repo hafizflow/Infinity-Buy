@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_buy/data/models/product_details_data.dart';
@@ -37,7 +39,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   bool _isLiked = false;
 
   String? _selectedSize;
-  String? _selectedColor;
+  Color? _selectedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                 ),
               ),
-              priceAndAddToCurtSection,
+              priceAndAddToCurtSection(
+                  productDetailsController.productDetails.product?.price ?? ''),
             ],
           ),
         );
@@ -125,9 +128,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     .toList() ??
                 [],
             onChange: (selectedColor) {
-              _selectedColor = selectedColor.toString();
+              _selectedColor = selectedColor;
 
-              print(_selectedColor);
+              log(_selectedColor.toString());
             },
           ),
           const SizedBox(height: 16),
@@ -167,7 +170,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Row reviewAndRating(double rating) {
+  Row reviewAndRating(int rating) {
     return Row(
       children: [
         Wrap(
@@ -222,7 +225,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Container get priceAndAddToCurtSection {
+  Container priceAndAddToCurtSection(String price) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -235,10 +238,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Price",
                 style: TextStyle(
                   fontSize: 12,
@@ -246,8 +249,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               Text(
-                '100.00',
-                style: TextStyle(
+                '\$$price',
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.primaryColor,
@@ -266,12 +269,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     onPressed: () async {
                       if (_selectedColor != null && _selectedSize != null) {
                         if (Get.find<AuthController>().isTokenNotNull) {
-                          _selectedColor =
-                              colorToHashColorCode(_selectedColor!);
+                          final stringColor = colorToString(_selectedColor!);
                           bool response = await addToCartController.addToCart(
                             widget.productId,
                             _selectedSize!,
-                            _selectedColor!,
+                            stringColor,
                           );
                           if (response) {
                             Get.showSnackbar(const GetSnackBar(
@@ -295,6 +297,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           title: "Add to curt failed",
                           message: "Please select color and size",
                           duration: Duration(seconds: 2),
+                          backgroundColor: Colors.red,
                         ));
                       }
                     },
@@ -371,17 +374,40 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Color getColorFromString(String colorCode) {
-    String code = colorCode.replaceAll('#', '');
-    String hexCode = 'FF$code';
-    return Color(int.parse('0x$hexCode'));
+  Color getColorFromString(String color) {
+    color = color.toLowerCase();
+    if (color == 'red') {
+      return Colors.red;
+    } else if (color == 'white') {
+      return Colors.white;
+    } else if (color == 'green') {
+      return Colors.green;
+    }
+    return Colors.grey;
   }
 
-  String colorToHashColorCode(String colorCode) {
-    return colorCode
-        .toString()
-        .replaceAll('0xff', '#')
-        .replaceAll('Color(', '')
-        .replaceAll(')', '');
+  String colorToString(Color color) {
+    if (color == Colors.red) {
+      return 'Red';
+    } else if (color == Colors.white) {
+      return 'White';
+    } else if (color == Colors.green) {
+      return 'Green';
+    }
+    return 'Grey';
   }
+
+  // Color getColorFromString(String colorCode) {
+  //   String code = colorCode.replaceAll('#', '');
+  //   String hexCode = 'FF$code';
+  //   return Color(int.parse('0x$hexCode'));
+  // }
+  //
+  // String colorToHashColorCode(String colorCode) {
+  //   return colorCode
+  //       .toString()
+  //       .replaceAll('0xff', '#')
+  //       .replaceAll('Color(', '')
+  //       .replaceAll(')', '');
+  // }
 }
