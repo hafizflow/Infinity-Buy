@@ -12,7 +12,7 @@ import 'package:infinity_buy/presentation/ui/screens/wish_screen.dart';
 import 'package:infinity_buy/presentation/ui/utility/app_colors.dart';
 
 import '../../state_holders/home_banner_controller.dart';
-import 'cart_list_screen.dart';
+import 'cart_screen.dart';
 import 'category_screen.dart';
 
 class MainBottomNavScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const CategoryScreen(),
-    const CartListScreen(),
+    const CartScreen(),
     const WishScreen(),
   ];
 

@@ -20,6 +20,7 @@ class AddToCartController extends GetxController {
       "product_id": productId,
       "color": size,
       "size": color,
+      "qty": 1,
     };
 
     final ResponseData response = await NetworkCaller().postRequest(
