@@ -14,7 +14,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       appBar: AppBar(
         title: const Text('Checkout'),
       ),
-      body: const Column(),
+      body: const Column(
+        children: [],
+      ),
     );
   }
 }
