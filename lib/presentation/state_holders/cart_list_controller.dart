@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:infinity_buy/data/models/cart_item.dart';
 import 'package:infinity_buy/data/models/response_data.dart';
 import 'package:infinity_buy/data/services/network_caller.dart';
 import 'package:infinity_buy/data/utility/urls.dart';
@@ -32,6 +33,7 @@ class CartListController extends GetxController {
     if (response.isSuccess) {
       isSuccess = true;
       _cartListModel = CartListModel.fromJson(response.responseData);
+      _totalPrice.value = _calculateTotalPrice;
       log(_cartListModel.toString());
     } else {
       _errorMessage = errorMessage;
@@ -39,5 +41,23 @@ class CartListController extends GetxController {
 
     update();
     return isSuccess;
+  }
+
+  final RxDouble _totalPrice = 0.0.obs;
+  RxDouble get totalPrice => _totalPrice;
+
+  void updateQuantity(int id, String quantity) {
+    _cartListModel.cartItemList?.firstWhere((element) => element.id == id).qty =
+        quantity;
+    totalPrice.value = _calculateTotalPrice;
+  }
+
+  double get _calculateTotalPrice {
+    double total = 0;
+    for (CartListItem item in _cartListModel.cartItemList ?? []) {
+      total += (double.tryParse(item.product?.price ?? '0') ?? 0) *
+          int.parse(item.qty);
+    }
+    return total;
   }
 }

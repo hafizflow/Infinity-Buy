@@ -274,6 +274,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             widget.productId,
                             _selectedSize!,
                             stringColor,
+                            numberOfItem.value,
                           );
                           if (response) {
                             Get.showSnackbar(const GetSnackBar(

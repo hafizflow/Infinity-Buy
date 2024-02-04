@@ -66,4 +66,9 @@ class AppThemeData {
       ),
     ),
   );
+
+  // String getCurrency() {
+  //   var format = NumberFormat.simpleCurrency(locale: Platform.localeName);
+  //   return format.currencySymbol;
+  // }
 }

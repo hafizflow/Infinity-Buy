@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:infinity_buy/data/models/cart_item.dart';
+import 'package:infinity_buy/presentation/state_holders/cart_list_controller.dart';
 
 import '../utility/app_colors.dart';
 import '../utility/assets_path.dart';
 
-class CartProductItem extends StatelessWidget {
+class CartProductItem extends StatefulWidget {
+  final CartListItem cartListItem;
   const CartProductItem({
     super.key,
+    required this.cartListItem,
   });
 
   @override
+  State<CartProductItem> createState() => _CartProductItemState();
+}
+
+class _CartProductItemState extends State<CartProductItem> {
+  @override
   Widget build(BuildContext context) {
-    ValueNotifier<int> numberOfItem = ValueNotifier(1);
+    late ValueNotifier<int> numberOfItem =
+        ValueNotifier(int.parse(widget.cartListItem.qty));
     return Card(
       elevation: 1,
       shape: RoundedRectangleBorder(
@@ -23,8 +34,8 @@ class CartProductItem extends StatelessWidget {
               topLeft: Radius.circular(16),
               bottomLeft: Radius.circular(16),
             ),
-            child: Image.asset(
-              AssetsPath.dummyShoePng,
+            child: Image.network(
+              widget.cartListItem.product?.image ?? '',
               width: 120,
               height: 115,
               fit: BoxFit.cover,
@@ -45,7 +56,7 @@ class CartProductItem extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "New Year Special Shoe",
+                                widget.cartListItem.product?.title ?? '',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
@@ -88,9 +99,9 @@ class CartProductItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "\$100",
-                          style: TextStyle(
+                        Text(
+                          "৳${widget.cartListItem.product?.price ?? 0}",
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                             color: AppColors.primaryColor,
@@ -101,7 +112,7 @@ class CartProductItem extends StatelessWidget {
                           builder: (context, value, _) {
                             return Padding(
                               padding: const EdgeInsets.only(right: 15.0),
-                              child: itemCount(numberOfItem, value),
+                              child: itemCount(numberOfItem),
                             );
                           },
                         ),
@@ -117,7 +128,9 @@ class CartProductItem extends StatelessWidget {
     );
   }
 
-  Wrap itemCount(ValueNotifier<int> numberOfItem, int value) {
+  Wrap itemCount(
+    ValueNotifier<int> numberOfItem,
+  ) {
     return Wrap(
       direction: Axis.horizontal,
       spacing: 4,
@@ -126,6 +139,10 @@ class CartProductItem extends StatelessWidget {
           onTap: () {
             if (numberOfItem.value > 1) {
               numberOfItem.value--;
+              Get.find<CartListController>().updateQuantity(
+                widget.cartListItem.id!,
+                numberOfItem.value.toString(),
+              );
             }
           },
           child: Container(
@@ -146,7 +163,7 @@ class CartProductItem extends StatelessWidget {
           ),
         ),
         Text(
-          "$value",
+          "${numberOfItem.value}",
           style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
@@ -156,6 +173,10 @@ class CartProductItem extends StatelessWidget {
             if (numberOfItem.value < 10) {
               numberOfItem.value++;
             }
+            Get.find<CartListController>().updateQuantity(
+              widget.cartListItem.id!,
+              numberOfItem.value.toString(),
+            );
           },
           child: Container(
             padding: const EdgeInsets.all(4),
