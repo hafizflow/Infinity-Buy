@@ -4,7 +4,6 @@ import 'package:infinity_buy/data/models/cart_item.dart';
 import 'package:infinity_buy/presentation/state_holders/cart_list_controller.dart';
 
 import '../utility/app_colors.dart';
-import '../utility/assets_path.dart';
 
 class CartProductItem extends StatefulWidget {
   final CartListItem cartListItem;

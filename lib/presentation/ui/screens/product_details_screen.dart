@@ -7,6 +7,7 @@ import 'package:infinity_buy/presentation/state_holders/add_to_cart_controller.d
 import 'package:infinity_buy/presentation/state_holders/auth_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/product_details_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/auth/verify_email_screen.dart';
+import 'package:infinity_buy/presentation/ui/screens/review_list_screen.dart';
 import 'package:infinity_buy/presentation/ui/widgets/center_circular_progress_indicator.dart';
 import 'package:infinity_buy/presentation/ui/widgets/product_details/product_image_carousel.dart';
 
@@ -192,12 +193,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ],
         ),
         const SizedBox(width: 16),
-        const Text(
-          "Review",
-          style: TextStyle(
-            color: AppColors.primaryColor,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
+        InkWell(
+          onTap: () {
+            Get.to(
+              () => ReviewListScreen(
+                productId: widget.productId,
+              ),
+            );
+          },
+          child: const Text(
+            "Review",
+            style: TextStyle(
+              color: AppColors.primaryColor,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
         const SizedBox(width: 16),

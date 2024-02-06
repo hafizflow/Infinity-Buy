@@ -1,12 +1,28 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinity_buy/presentation/state_holders/review_list_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/create_review_screen.dart';
 
 import '../utility/app_colors.dart';
+import '../widgets/center_circular_progress_indicator.dart';
+import '../widgets/review_card.dart';
 
-class ReviewScreen extends StatelessWidget {
-  const ReviewScreen({super.key});
+class ReviewListScreen extends StatefulWidget {
+  final int productId;
+  const ReviewListScreen({super.key, required this.productId});
+
+  @override
+  State<ReviewListScreen> createState() => _ReviewListScreenState();
+}
+
+class _ReviewListScreenState extends State<ReviewListScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<ReviewListController>().getReviewList(widget.productId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,69 +36,41 @@ class ReviewScreen extends StatelessWidget {
         ),
         title: const Text("Reviews"),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-                itemCount: 10,
+      body: GetBuilder<ReviewListController>(builder: (reviewListController) {
+        if (reviewListController.inProgress) {
+          return const CenterCircularProgressIndicator();
+        }
+        return Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount:
+                    reviewListController.reviewListModel.reviewItem?.length ??
+                        0,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    child: reviewCard,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
+                    child: ReviewCard(
+                      reviewListItem: reviewListController
+                          .reviewListModel.reviewItem![index],
+                    ),
                   );
-                }),
-          ),
-          reviewCountAndAddReview,
-        ],
-      ),
-    );
-  }
-
-  Column get reviewCard {
-    return Column(
-      children: [
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 12,
-                      backgroundColor: Colors.grey.withOpacity(0.2),
-                      child: const Icon(
-                        CupertinoIcons.person,
-                        size: 18,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    const Text(
-                      "Asn Masum Khan",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  "If you're visiting this page, you're likely here because you're searching for a random sentence. Sometimes a random word just isn't enough, and that is where the random sentence generator comes into play.",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
+                },
+              ),
             ),
-          ),
-        ),
-      ],
+            reviewCountAndAddReview(
+                reviewListController.reviewListModel.reviewItem?.length ?? 0),
+          ],
+        );
+      }),
     );
   }
 
-  Container get reviewCountAndAddReview {
+  Container reviewCountAndAddReview(int totalReview) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -97,20 +85,20 @@ class ReviewScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Row(
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Reviews",
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                       color: Colors.black54),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
-                  "(1000)",
-                  style: TextStyle(
+                  "($totalReview)",
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                     color: Colors.black54,

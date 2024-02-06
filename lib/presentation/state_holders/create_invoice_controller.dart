@@ -5,7 +5,7 @@ import 'package:infinity_buy/data/services/network_caller.dart';
 import 'package:infinity_buy/data/utility/urls.dart';
 
 class CreateInvoiceController extends GetxController {
-  bool _inProgress = false;
+  bool _inProgress = true;
   String _errorMessage = '';
   PaymentMethodListModel _paymentMethodListModel = PaymentMethodListModel();
 

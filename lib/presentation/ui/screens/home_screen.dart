@@ -7,7 +7,6 @@ import 'package:infinity_buy/presentation/state_holders/main_bottom_nav_controll
 import 'package:infinity_buy/presentation/state_holders/popular_product_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/auth/verify_email_screen.dart';
 import 'package:infinity_buy/presentation/ui/screens/product_list_screen.dart';
-import 'package:infinity_buy/presentation/ui/screens/review_screen.dart';
 import 'package:infinity_buy/presentation/ui/utility/assets_path.dart';
 import 'package:infinity_buy/presentation/ui/widgets/center_circular_progress_indicator.dart';
 
@@ -208,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
         const SizedBox(width: 10),
         CircleIconButton(
           onTap: () {
-            Get.to(() => const ReviewScreen());
+            Get.to(() => null);
           },
           iconData: Icons.notifications_active_outlined,
         ),
