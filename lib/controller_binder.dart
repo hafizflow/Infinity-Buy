@@ -6,6 +6,7 @@ import 'package:infinity_buy/presentation/state_holders/cart_list_controller.dar
 import 'package:infinity_buy/presentation/state_holders/category_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/complete_profile_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/create_invoice_controller.dart';
+import 'package:infinity_buy/presentation/state_holders/delete_cart_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/home_banner_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/new_product_controller.dart';
@@ -43,5 +44,6 @@ class ControllerBinder extends Bindings {
     Get.put(WishListController());
     Get.put(AddWishListController());
     Get.put(RemoveWishController());
+    Get.put(DeleteCartController());
   }
 }

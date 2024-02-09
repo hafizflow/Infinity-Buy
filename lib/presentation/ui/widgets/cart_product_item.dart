@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_buy/data/models/cart_item.dart';
 import 'package:infinity_buy/presentation/state_holders/cart_list_controller.dart';
+import 'package:infinity_buy/presentation/state_holders/delete_cart_controller.dart';
 
 import '../utility/app_colors.dart';
 
@@ -83,13 +84,16 @@ class _CartProductItemState extends State<CartProductItem> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.find<DeleteCartController>()
+                                .deleteCart(widget.cartListItem.productId!);
+                            Get.find<CartListController>().getCartList();
+                          },
                           icon: Icon(
                             Icons.delete_forever_outlined,
-                            color: Colors.grey.shade600,
-                            size: 26,
+                            color: Colors.red.shade200,
+                            size: 28,
                           ),
-                          padding: const EdgeInsets.all(2),
                           constraints: const BoxConstraints(),
                         )
                       ],

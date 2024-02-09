@@ -74,8 +74,8 @@ class _WishProductItemState extends State<WishProductItem> {
                           },
                           icon: Icon(
                             Icons.delete_forever_outlined,
-                            color: Colors.grey.shade600,
-                            size: 26,
+                            color: Colors.red.shade200,
+                            size: 28,
                           ),
                           padding: const EdgeInsets.all(2),
                           constraints: const BoxConstraints(),

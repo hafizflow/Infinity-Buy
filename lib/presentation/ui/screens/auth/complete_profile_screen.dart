@@ -16,11 +16,23 @@ class CompleteProfileScreen extends StatefulWidget {
 
 // complete profile
 class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
-  final TextEditingController _firstNameTEController = TextEditingController();
-  final TextEditingController _lastNameTEController = TextEditingController();
-  final TextEditingController _mobileTEController = TextEditingController();
+  final TextEditingController _nameTEController = TextEditingController();
+  final TextEditingController _addressTEController = TextEditingController();
   final TextEditingController _cityTEController = TextEditingController();
-  final TextEditingController _saTEController = TextEditingController();
+  final TextEditingController _stateTEController = TextEditingController();
+  final TextEditingController _postCodeTEController = TextEditingController();
+  final TextEditingController _countryTEController = TextEditingController();
+  final TextEditingController _phoneTEController = TextEditingController();
+  final TextEditingController _faxTEController = TextEditingController();
+  final TextEditingController _shipNameTEController = TextEditingController();
+  final TextEditingController _shipAddTEController = TextEditingController();
+  final TextEditingController _shipCityTEController = TextEditingController();
+  final TextEditingController _shipStateTEController = TextEditingController();
+  final TextEditingController _shipPostCodeTEController =
+      TextEditingController();
+  final TextEditingController _shipCountryTEController =
+      TextEditingController();
+  final TextEditingController _shipPhoneTEController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -51,37 +63,20 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 ),
                 const SizedBox(height: 24),
                 TextFormField(
-                  controller: _firstNameTEController,
-                  decoration: const InputDecoration(hintText: "First Name"),
+                  controller: _nameTEController,
+                  decoration: const InputDecoration(hintText: "Name"),
                   textInputAction: TextInputAction.next,
                   validator: (val) =>
-                      val != null && val.isNotEmpty ? null : 'Enter first name',
+                      val != null && val.isNotEmpty ? null : 'Enter name',
                 ),
                 const SizedBox(height: 24),
                 TextFormField(
-                  controller: _lastNameTEController,
-                  decoration: const InputDecoration(hintText: "Last Name"),
+                  controller: _addressTEController,
+                  maxLines: 3,
+                  decoration: const InputDecoration(hintText: "Address"),
                   textInputAction: TextInputAction.next,
                   validator: (val) =>
-                      val != null && val.isNotEmpty ? null : 'Enter last name',
-                ),
-                const SizedBox(height: 24),
-                TextFormField(
-                  controller: _mobileTEController,
-                  keyboardType: TextInputType.phone,
-                  decoration: const InputDecoration(
-                      hintText: "Mobile", counterText: ''),
-                  textInputAction: TextInputAction.next,
-                  maxLength: 11,
-                  validator: (val) {
-                    if (val == null || val.isEmpty) {
-                      return 'Enter mobile number';
-                    } else if (val.length != 11) {
-                      return 'Enter valid mobile number';
-                    } else {
-                      return null;
-                    }
-                  },
+                      val != null && val.isNotEmpty ? null : 'Enter address',
                 ),
                 const SizedBox(height: 24),
                 TextFormField(
@@ -93,14 +88,122 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 ),
                 const SizedBox(height: 24),
                 TextFormField(
-                  controller: _saTEController,
-                  maxLines: 3,
+                  controller: _stateTEController,
+                  decoration: const InputDecoration(hintText: "State"),
+                  textInputAction: TextInputAction.done,
+                  validator: (val) =>
+                      val != null && val.isNotEmpty ? null : 'Enter state',
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: _postCodeTEController,
+                  decoration: const InputDecoration(hintText: "PostCode"),
+                  textInputAction: TextInputAction.done,
+                  validator: (val) =>
+                      val != null && val.isNotEmpty ? null : 'Enter postcode',
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: _countryTEController,
+                  decoration: const InputDecoration(hintText: "Country"),
+                  textInputAction: TextInputAction.done,
+                  validator: (val) =>
+                      val != null && val.isNotEmpty ? null : 'Enter country',
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: _phoneTEController,
+                  keyboardType: TextInputType.phone,
                   decoration:
-                      const InputDecoration(hintText: "Shipping Address"),
+                      const InputDecoration(hintText: "Phone", counterText: ''),
+                  textInputAction: TextInputAction.next,
+                  maxLength: 11,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'Enter phone number';
+                    } else if (val.length != 11) {
+                      return 'Enter valid phone number';
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: _faxTEController,
+                  decoration: const InputDecoration(hintText: "Fax"),
+                  textInputAction: TextInputAction.done,
+                  validator: (val) =>
+                      val != null && val.isNotEmpty ? null : 'Enter fax',
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: _shipNameTEController,
+                  decoration: const InputDecoration(hintText: "Ship Name"),
+                  textInputAction: TextInputAction.done,
+                  validator: (val) =>
+                      val != null && val.isNotEmpty ? null : 'Enter ship name',
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: _shipAddTEController,
+                  decoration: const InputDecoration(hintText: "Ship Address"),
                   textInputAction: TextInputAction.done,
                   validator: (val) => val != null && val.isNotEmpty
                       ? null
-                      : 'Enter shipping address',
+                      : 'Enter ship address',
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: _shipCityTEController,
+                  decoration: const InputDecoration(hintText: "Ship City"),
+                  textInputAction: TextInputAction.done,
+                  validator: (val) =>
+                      val != null && val.isNotEmpty ? null : 'Enter ship city',
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: _shipStateTEController,
+                  decoration: const InputDecoration(hintText: "Ship State"),
+                  textInputAction: TextInputAction.done,
+                  validator: (val) =>
+                      val != null && val.isNotEmpty ? null : 'Enter ship state',
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: _shipPostCodeTEController,
+                  decoration: const InputDecoration(hintText: "Ship Post Code"),
+                  textInputAction: TextInputAction.done,
+                  validator: (val) => val != null && val.isNotEmpty
+                      ? null
+                      : 'Enter ship post code',
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: _shipCountryTEController,
+                  decoration: const InputDecoration(hintText: "Ship Country"),
+                  textInputAction: TextInputAction.done,
+                  validator: (val) => val != null && val.isNotEmpty
+                      ? null
+                      : 'Enter ship country',
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: _shipPhoneTEController,
+                  keyboardType: TextInputType.phone,
+                  decoration: const InputDecoration(
+                      hintText: "Ship Phone", counterText: ''),
+                  textInputAction: TextInputAction.next,
+                  maxLength: 11,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'Enter ship phone number';
+                    } else if (val.length != 11) {
+                      return 'Enter valid ship phone number';
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
                 const SizedBox(height: 24),
                 SizedBox(
@@ -114,11 +217,23 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               final createProfileParams = CreateProfileParams(
-                                firstName: _firstNameTEController.text.trim(),
-                                lastName: _lastNameTEController.text.trim(),
-                                mobile: _mobileTEController.text.trim(),
+                                name: _nameTEController.text.trim(),
+                                address: _addressTEController.text.trim(),
                                 city: _cityTEController.text.trim(),
-                                shippingAddress: _saTEController.text.trim(),
+                                state: _stateTEController.text.trim(),
+                                postCode: _postCodeTEController.text.trim(),
+                                country: _countryTEController.text.trim(),
+                                phone: _phoneTEController.text.trim(),
+                                fax: _faxTEController.text.trim(),
+                                shipName: _stateTEController.text.trim(),
+                                shipAdd: _shipAddTEController.text.trim(),
+                                shipCity: _shipCityTEController.text.trim(),
+                                shipState: _shipStateTEController.text.trim(),
+                                shipPostcode:
+                                    _shipPostCodeTEController.text.trim(),
+                                shipCountry:
+                                    _shipCountryTEController.text.trim(),
+                                shipPhone: _shipPhoneTEController.text.trim(),
                               );
 
                               final bool result =
@@ -147,6 +262,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                     },
                   ),
                 ),
+                const SizedBox(height: 24),
               ],
             ),
           ),
@@ -157,11 +273,21 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
 
   @override
   void dispose() {
-    _firstNameTEController.dispose();
-    _lastNameTEController.dispose();
-    _mobileTEController.dispose();
-    _cityTEController.dispose();
-    _saTEController.dispose();
     super.dispose();
+    _nameTEController.dispose();
+    _addressTEController.dispose();
+    _cityTEController.dispose();
+    _stateTEController.dispose();
+    _postCodeTEController.dispose();
+    _countryTEController.dispose();
+    _phoneTEController.dispose();
+    _faxTEController.dispose();
+    _shipNameTEController.dispose();
+    _shipAddTEController.dispose();
+    _shipCityTEController.dispose();
+    _shipStateTEController.dispose();
+    _shipPostCodeTEController.dispose();
+    _shipCountryTEController.dispose();
+    _shipPhoneTEController.dispose();
   }
 }
