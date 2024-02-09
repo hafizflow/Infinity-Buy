@@ -8,7 +8,7 @@ import 'package:infinity_buy/presentation/state_holders/new_product_controller.d
 import 'package:infinity_buy/presentation/state_holders/popular_product_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/special_product_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/home_screen.dart';
-import 'package:infinity_buy/presentation/ui/screens/wish_screen.dart';
+import 'package:infinity_buy/presentation/ui/screens/wish_list_screen.dart';
 import 'package:infinity_buy/presentation/ui/utility/app_colors.dart';
 
 import '../../state_holders/home_banner_controller.dart';

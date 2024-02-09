@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_buy/data/models/product_details_data.dart';
 import 'package:infinity_buy/presentation/state_holders/add_to_cart_controller.dart';
+import 'package:infinity_buy/presentation/state_holders/add_wish_list_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/auth_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/product_details_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/auth/verify_email_screen.dart';
@@ -71,7 +72,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ],
                       ),
                       productDetailsBody(
-                          productDetailsController.productDetails),
+                        productDetailsController.productDetails,
+                      ),
                     ],
                   ),
                 ),
@@ -214,6 +216,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         InkWell(
           onTap: () {
             _isLiked = !_isLiked;
+            if (_isLiked == true) {
+              Get.find<AddWishListController>().addWishList(widget.productId);
+            }
             setState(() {});
           },
           child: Card(

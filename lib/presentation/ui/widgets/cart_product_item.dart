@@ -64,17 +64,17 @@ class _CartProductItemState extends State<CartProductItem> {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                               ),
-                              const Row(
+                              Row(
                                 children: [
                                   Text(
-                                    "Color: Black",
-                                    style: TextStyle(
+                                    "Color: ${widget.cartListItem.color}",
+                                    style: const TextStyle(
                                         fontSize: 12, color: Colors.black54),
                                   ),
-                                  SizedBox(width: 12),
+                                  const SizedBox(width: 12),
                                   Text(
-                                    "Size: X",
-                                    style: TextStyle(
+                                    "Size: ${widget.cartListItem.size}",
+                                    style: const TextStyle(
                                         fontSize: 12, color: Colors.black54),
                                   ),
                                 ],
