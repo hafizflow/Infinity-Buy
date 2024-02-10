@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinity_buy/presentation/state_holders/send_email_otp_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/verify_otp_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/auth/complete_profile_screen.dart';
 import 'package:infinity_buy/presentation/ui/screens/main_bottom_nav_screen.dart';
@@ -26,27 +27,27 @@ class VerifyOTPScreen extends StatefulWidget {
 
 class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
   late Timer countdownTimer;
-  int resendTime = 120;
+  int resendTime = 60;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _otpTEController = TextEditingController();
 
   @override
   void initState() {
-    // startTimer();
+    startTimer();
     super.initState();
   }
 
-  // void startTimer() {
-  //   countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-  //     resendTime--;
-  //     if (mounted) {
-  //       setState(() {});
-  //     }
-  //     if (resendTime < 1) {
-  //       countdownTimer.cancel();
-  //     }
-  //   });
-  // }
+  void startTimer() {
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      resendTime--;
+      if (mounted) {
+        setState(() {});
+      }
+      if (resendTime == 0 || !mounted) {
+        countdownTimer.cancel();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,15 +152,18 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                     ],
                   ),
                 ),
-                resendTime == 0
-                    ? TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "Resend Code",
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      )
-                    : const Text(''),
+                TextButton(
+                  onPressed: () {
+                    if (resendTime == 0) {
+                      Get.find<SendEmailOtpController>()
+                          .sendOtpToEmail(widget.email);
+                    }
+                  },
+                  child: const Text(
+                    "Resend Code",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                )
               ],
             ),
           ),

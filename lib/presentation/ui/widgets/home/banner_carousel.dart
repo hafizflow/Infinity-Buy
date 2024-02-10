@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:infinity_buy/data/models/banner_item.dart';
+import 'package:infinity_buy/presentation/ui/screens/product_details_screen.dart';
 
 import '../../utility/app_colors.dart';
 
@@ -107,7 +109,9 @@ class _BannerCarouselState extends State<BannerCarousel> {
         ),
         const SizedBox(height: 8),
         MaterialButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(() => const ProductDetailsScreen(productId: 1));
+          },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
