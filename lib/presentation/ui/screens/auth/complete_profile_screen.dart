@@ -72,69 +72,96 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 const SizedBox(height: 24),
                 TextFormField(
                   controller: _addressTEController,
-                  maxLines: 3,
+                  maxLines: 2,
                   decoration: const InputDecoration(hintText: "Address"),
                   textInputAction: TextInputAction.next,
                   validator: (val) =>
                       val != null && val.isNotEmpty ? null : 'Enter address',
                 ),
                 const SizedBox(height: 24),
-                TextFormField(
-                  controller: _cityTEController,
-                  decoration: const InputDecoration(hintText: "City"),
-                  textInputAction: TextInputAction.next,
-                  validator: (val) =>
-                      val != null && val.isNotEmpty ? null : 'Enter city',
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _cityTEController,
+                        decoration: const InputDecoration(hintText: "City"),
+                        textInputAction: TextInputAction.next,
+                        validator: (val) =>
+                            val != null && val.isNotEmpty ? null : 'Enter city',
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _stateTEController,
+                        decoration: const InputDecoration(hintText: "State"),
+                        textInputAction: TextInputAction.done,
+                        validator: (val) => val != null && val.isNotEmpty
+                            ? null
+                            : 'Enter state',
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 24),
-                TextFormField(
-                  controller: _stateTEController,
-                  decoration: const InputDecoration(hintText: "State"),
-                  textInputAction: TextInputAction.done,
-                  validator: (val) =>
-                      val != null && val.isNotEmpty ? null : 'Enter state',
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _postCodeTEController,
+                        decoration: const InputDecoration(hintText: "PostCode"),
+                        textInputAction: TextInputAction.done,
+                        validator: (val) => val != null && val.isNotEmpty
+                            ? null
+                            : 'Enter postcode',
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _countryTEController,
+                        decoration: const InputDecoration(hintText: "Country"),
+                        textInputAction: TextInputAction.done,
+                        validator: (val) => val != null && val.isNotEmpty
+                            ? null
+                            : 'Enter country',
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 24),
-                TextFormField(
-                  controller: _postCodeTEController,
-                  decoration: const InputDecoration(hintText: "PostCode"),
-                  textInputAction: TextInputAction.done,
-                  validator: (val) =>
-                      val != null && val.isNotEmpty ? null : 'Enter postcode',
-                ),
-                const SizedBox(height: 24),
-                TextFormField(
-                  controller: _countryTEController,
-                  decoration: const InputDecoration(hintText: "Country"),
-                  textInputAction: TextInputAction.done,
-                  validator: (val) =>
-                      val != null && val.isNotEmpty ? null : 'Enter country',
-                ),
-                const SizedBox(height: 24),
-                TextFormField(
-                  controller: _phoneTEController,
-                  keyboardType: TextInputType.phone,
-                  decoration:
-                      const InputDecoration(hintText: "Phone", counterText: ''),
-                  textInputAction: TextInputAction.next,
-                  maxLength: 11,
-                  validator: (val) {
-                    if (val == null || val.isEmpty) {
-                      return 'Enter phone number';
-                    } else if (val.length != 11) {
-                      return 'Enter valid phone number';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                const SizedBox(height: 24),
-                TextFormField(
-                  controller: _faxTEController,
-                  decoration: const InputDecoration(hintText: "Fax"),
-                  textInputAction: TextInputAction.done,
-                  validator: (val) =>
-                      val != null && val.isNotEmpty ? null : 'Enter fax',
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _phoneTEController,
+                        keyboardType: TextInputType.phone,
+                        decoration: const InputDecoration(
+                            hintText: "Phone", counterText: ''),
+                        textInputAction: TextInputAction.next,
+                        maxLength: 11,
+                        validator: (val) {
+                          if (val == null || val.isEmpty) {
+                            return 'Enter phone number';
+                          } else if (val.length != 11) {
+                            return 'Enter valid phone number';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _faxTEController,
+                        decoration: const InputDecoration(hintText: "Fax"),
+                        textInputAction: TextInputAction.done,
+                        validator: (val) =>
+                            val != null && val.isNotEmpty ? null : 'Enter fax',
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 24),
                 TextFormField(
@@ -147,6 +174,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 const SizedBox(height: 24),
                 TextFormField(
                   controller: _shipAddTEController,
+                  maxLines: 2,
                   decoration: const InputDecoration(hintText: "Ship Address"),
                   textInputAction: TextInputAction.done,
                   validator: (val) => val != null && val.isNotEmpty
@@ -154,38 +182,60 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       : 'Enter ship address',
                 ),
                 const SizedBox(height: 24),
-                TextFormField(
-                  controller: _shipCityTEController,
-                  decoration: const InputDecoration(hintText: "Ship City"),
-                  textInputAction: TextInputAction.done,
-                  validator: (val) =>
-                      val != null && val.isNotEmpty ? null : 'Enter ship city',
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _shipCityTEController,
+                        decoration:
+                            const InputDecoration(hintText: "Ship City"),
+                        textInputAction: TextInputAction.done,
+                        validator: (val) => val != null && val.isNotEmpty
+                            ? null
+                            : 'Enter ship city',
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _shipStateTEController,
+                        decoration:
+                            const InputDecoration(hintText: "Ship State"),
+                        textInputAction: TextInputAction.done,
+                        validator: (val) => val != null && val.isNotEmpty
+                            ? null
+                            : 'Enter ship state',
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 24),
-                TextFormField(
-                  controller: _shipStateTEController,
-                  decoration: const InputDecoration(hintText: "Ship State"),
-                  textInputAction: TextInputAction.done,
-                  validator: (val) =>
-                      val != null && val.isNotEmpty ? null : 'Enter ship state',
-                ),
-                const SizedBox(height: 24),
-                TextFormField(
-                  controller: _shipPostCodeTEController,
-                  decoration: const InputDecoration(hintText: "Ship Post Code"),
-                  textInputAction: TextInputAction.done,
-                  validator: (val) => val != null && val.isNotEmpty
-                      ? null
-                      : 'Enter ship post code',
-                ),
-                const SizedBox(height: 24),
-                TextFormField(
-                  controller: _shipCountryTEController,
-                  decoration: const InputDecoration(hintText: "Ship Country"),
-                  textInputAction: TextInputAction.done,
-                  validator: (val) => val != null && val.isNotEmpty
-                      ? null
-                      : 'Enter ship country',
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _shipPostCodeTEController,
+                        decoration:
+                            const InputDecoration(hintText: "Ship Post Code"),
+                        textInputAction: TextInputAction.done,
+                        validator: (val) => val != null && val.isNotEmpty
+                            ? null
+                            : 'Enter ship post code',
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _shipCountryTEController,
+                        decoration:
+                            const InputDecoration(hintText: "Ship Country"),
+                        textInputAction: TextInputAction.done,
+                        validator: (val) => val != null && val.isNotEmpty
+                            ? null
+                            : 'Enter ship country',
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 24),
                 TextFormField(
@@ -217,14 +267,6 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               final createProfileParams = CreateProfileParams(
-                                name: _nameTEController.text.trim(),
-                                address: _addressTEController.text.trim(),
-                                city: _cityTEController.text.trim(),
-                                state: _stateTEController.text.trim(),
-                                postCode: _postCodeTEController.text.trim(),
-                                country: _countryTEController.text.trim(),
-                                phone: _phoneTEController.text.trim(),
-                                fax: _faxTEController.text.trim(),
                                 shipName: _stateTEController.text.trim(),
                                 shipAdd: _shipAddTEController.text.trim(),
                                 shipCity: _shipCityTEController.text.trim(),
@@ -234,6 +276,14 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                                 shipCountry:
                                     _shipCountryTEController.text.trim(),
                                 shipPhone: _shipPhoneTEController.text.trim(),
+                                cusName: _nameTEController.text.trim(),
+                                cusAdd: _addressTEController.text.trim(),
+                                cusCity: _cityTEController.text.trim(),
+                                cusState: _stateTEController.text.trim(),
+                                cusPostcode: _postCodeTEController.text.trim(),
+                                cusCountry: _countryTEController.text.trim(),
+                                cusPhone: _phoneTEController.text.trim(),
+                                cusFax: _faxTEController.text.trim(),
                               );
 
                               final bool result =

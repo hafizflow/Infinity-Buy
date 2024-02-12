@@ -28,25 +28,26 @@ class VerifyOtpController extends GetxController {
       Urls.verifyOtp(email, otp),
     );
 
+    log("Response: ${response.responseData['data']}");
+
     _otpVerifyInProgress = false;
 
     if (response.isSuccess) {
       _token = response.responseData['data'];
       log("Response: $response");
-      log("Token: $_token");
-      log("statusCode: ${response.statusCode}");
+      log("Token from verify otp: $_token");
 
       // await Future.delayed(const Duration(seconds: 3));
 
       final result =
-          await Get.find<ReadProfileDataController>().readProfileData(token);
+          await Get.find<ReadProfileDataController>().readProfileData(_token);
 
       if (result) {
         _shouldNavigateCompleteProfile =
             Get.find<ReadProfileDataController>().isProfileCompleted == false;
         if (_shouldNavigateCompleteProfile == false) {
           await Get.find<AuthController>().saveUserDetails(
-              token, Get.find<ReadProfileDataController>().profile);
+              _token, Get.find<ReadProfileDataController>().profile);
         }
       } else {
         _errorMessage = Get.find<ReadProfileDataController>().errorMessage;

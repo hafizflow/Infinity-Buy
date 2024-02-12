@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_buy/presentation/state_holders/auth_controller.dart';
+import 'package:infinity_buy/presentation/state_holders/brand_list_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/category_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/home_banner_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/popular_product_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/auth/verify_email_screen.dart';
+import 'package:infinity_buy/presentation/ui/screens/brand_screen.dart';
 import 'package:infinity_buy/presentation/ui/screens/product_list_screen.dart';
 import 'package:infinity_buy/presentation/ui/utility/assets_path.dart';
+import 'package:infinity_buy/presentation/ui/widgets/brand_item.dart';
 import 'package:infinity_buy/presentation/ui/widgets/center_circular_progress_indicator.dart';
 
 import '../../../data/models/product_model.dart';
@@ -63,6 +66,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               categoryList,
               SectionTitle(
+                title: 'All Brands',
+                onTapSeeAll: () {
+                  Get.to(() => const BrandScreen());
+                },
+              ),
+              brandList,
+              SectionTitle(
                 title: 'Popular',
                 onTapSeeAll: () {
                   Get.to(() => const ProductListScreen());
@@ -114,6 +124,34 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  SizedBox get brandList {
+    return SizedBox(
+      height: 130,
+      child: GetBuilder<BrandListController>(builder: (brandListController) {
+        return Visibility(
+          visible: brandListController.inProgress == false,
+          replacement: const CenterCircularProgressIndicator(),
+          child: ListView.separated(
+            primary: false,
+            shrinkWrap: true,
+            itemCount:
+                brandListController.brandListModel.brandItem?.length ?? 0,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return BrandItem(
+                brandListItem:
+                    brandListController.brandListModel.brandItem![index],
+              );
+            },
+            separatorBuilder: (_, __) {
+              return const SizedBox(width: 14);
+            },
+          ),
+        );
+      }),
     );
   }
 

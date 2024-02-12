@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinity_buy/presentation/state_holders/brand_list_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/category_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:infinity_buy/presentation/state_holders/new_product_controller.dart';
@@ -39,6 +40,7 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
       Get.find<PopularProductController>().getPopularProductList();
       Get.find<NewProductController>().getNewProductList();
       Get.find<SpecialProductController>().getSpecialProductList();
+      Get.find<BrandListController>().getBrandList();
     });
   }
 

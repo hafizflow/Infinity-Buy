@@ -62,10 +62,10 @@ class NetworkCaller {
 
     final Response response =
         await post(Uri.parse(url), body: jsonEncode(body), headers: {
-      'token': AuthController.token.toString(),
+      'token': (token ?? AuthController.token).toString(),
       'Content-type': 'application/json',
     });
-
+    log(AuthController.token.toString());
     log(response.statusCode.toString());
     log(response.body.toString());
 

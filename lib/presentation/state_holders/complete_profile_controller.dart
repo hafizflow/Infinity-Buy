@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:infinity_buy/data/models/create_profile_params.dart';
 import 'package:infinity_buy/presentation/state_holders/auth_controller.dart';
@@ -18,7 +20,9 @@ class CompleteProfileController extends GetxController {
   bool get inProgress => _inProgress;
 
   Future<bool> createProfileData(
-      String token, CreateProfileParams params) async {
+    String token,
+    CreateProfileParams params,
+  ) async {
     _inProgress = true;
     update();
 
@@ -29,13 +33,17 @@ class CompleteProfileController extends GetxController {
     );
 
     _inProgress = false;
+    log("This is token: ${token.toString()}");
 
     if (response.isSuccess) {
+      log("Hello world ${response.isSuccess.toString()}");
+
       _profile = Profile.fromJson(response.responseData['data']);
       await Get.find<AuthController>().saveUserDetails(token, _profile);
       update();
       return true;
     } else {
+      log("Hello lal ${response.isSuccess.toString()}");
       _errorMessage = response.errorMessage;
       update();
       return false;
