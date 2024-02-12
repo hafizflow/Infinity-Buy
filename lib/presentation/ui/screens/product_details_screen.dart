@@ -50,40 +50,46 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         title: const Text("Product Details"),
       ),
       body: GetBuilder<ProductDetailsController>(
-          builder: (productDetailsController) {
-        if (productDetailsController.inProgress) {
-          return const CenterCircularProgressIndicator();
-        }
-        return Visibility(
-          visible: productDetailsController.inProgress == false,
-          replacement: const CenterCircularProgressIndicator(),
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ProductImageCarousel(
-                        urls: [
-                          productDetailsController.productDetails.img1 ?? '',
-                          productDetailsController.productDetails.img2 ?? '',
-                          productDetailsController.productDetails.img3 ?? '',
-                          productDetailsController.productDetails.img4 ?? '',
-                        ],
-                      ),
-                      productDetailsBody(
-                        productDetailsController.productDetails,
-                      ),
-                    ],
+        builder: (productDetailsController) {
+          if (productDetailsController.inProgress) {
+            return const CenterCircularProgressIndicator();
+          }
+
+          final productDetails = productDetailsController.productDetails;
+
+          if (productDetails != null) {
+            return Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ProductImageCarousel(
+                          urls: [
+                            productDetails.img1 ?? '',
+                            productDetails.img2 ?? '',
+                            productDetails.img3 ?? '',
+                            productDetails.img4 ?? '',
+                          ],
+                        ),
+                        productDetailsBody(productDetails),
+                      ],
+                    ),
                   ),
                 ),
+                priceAndAddToCurtSection(productDetails.product?.price ?? ''),
+              ],
+            );
+          } else {
+            return const Center(
+              child: Text(
+                'Product details not available',
+                style: TextStyle(fontSize: 18),
               ),
-              priceAndAddToCurtSection(
-                  productDetailsController.productDetails.product?.price ?? ''),
-            ],
-          ),
-        );
-      }),
+            );
+          }
+        },
+      ),
     );
   }
 

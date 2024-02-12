@@ -17,7 +17,7 @@ class _BrandScreenState extends State<BrandScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
       onPopInvoked: (_) {
         Get.find<MainBottomNavController>().backToHome();
       },
@@ -28,7 +28,7 @@ class _BrandScreenState extends State<BrandScreen> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new),
             onPressed: () {
-              Get.find<MainBottomNavController>().backToHome();
+              Get.back();
             },
           ),
           title: const Text(

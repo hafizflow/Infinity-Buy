@@ -14,8 +14,14 @@ class ProductDetailsController extends GetxController {
   bool get inProgress => _inProgress;
 
   ProductDetailsModel _productDetailsModel = ProductDetailsModel();
-  ProductDetailsData get productDetails =>
-      _productDetailsModel.productDetailsDataList!.first;
+  ProductDetailsData? get productDetails {
+    if (_productDetailsModel.productDetailsDataList != null &&
+        _productDetailsModel.productDetailsDataList!.isNotEmpty) {
+      return _productDetailsModel.productDetailsDataList!.first;
+    } else {
+      return null;
+    }
+  }
 
   Future<bool> getProductDetails({required int productId}) async {
     _inProgress = true;
