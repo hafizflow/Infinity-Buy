@@ -133,11 +133,14 @@ class _BannerCarouselState extends State<BannerCarousel> {
   Padding productImage(BannerItem banner) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32),
-      child: Image.network(
-        banner.image ?? '',
-        width: 150,
-        height: 300,
-        fit: BoxFit.fill,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.network(
+          banner.image ?? '',
+          width: 150,
+          height: 300,
+          fit: BoxFit.fill,
+        ),
       ),
     );
   }
