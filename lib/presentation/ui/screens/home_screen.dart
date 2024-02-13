@@ -75,7 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
               SectionTitle(
                 title: 'Popular',
                 onTapSeeAll: () {
-                  Get.to(() => const ProductListScreen());
+                  Get.to(() => const ProductListScreen(
+                        categoryId: 1,
+                        category: "Popular Products",
+                      ));
                 },
               ),
               GetBuilder<PopularProductController>(
@@ -92,7 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
               SectionTitle(
                 title: 'Special',
                 onTapSeeAll: () {
-                  Get.to(() => const ProductListScreen());
+                  Get.to(() => const ProductListScreen(
+                        categoryId: 1,
+                        category: "Special Products",
+                      ));
                 },
               ),
               GetBuilder<SpecialProductController>(
@@ -109,7 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
               SectionTitle(
                 title: 'New',
                 onTapSeeAll: () {
-                  Get.to(() => const ProductListScreen());
+                  Get.to(() => const ProductListScreen(
+                        categoryId: 1,
+                        category: "New Products",
+                      ));
                 },
               ),
               GetBuilder<NewProductController>(builder: (newProductController) {
