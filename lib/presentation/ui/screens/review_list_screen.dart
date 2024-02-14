@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:infinity_buy/presentation/state_holders/review_list_controller.dart';
 import 'package:infinity_buy/presentation/ui/screens/create_review_screen.dart';
 
+import '../../state_holders/auth_controller.dart';
 import '../utility/app_colors.dart';
 import '../widgets/center_circular_progress_indicator.dart';
 import '../widgets/review_card.dart';
@@ -114,7 +115,15 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
                   padding: const EdgeInsets.all(8),
                 ),
                 onPressed: () {
-                  Get.to(() => const CreateReviewScreen());
+                  if (Get.find<AuthController>().isTokenNotNull == false) {
+                    AuthController.goToLogin();
+                    return;
+                  }
+                  Get.off(
+                    () => CreateReviewScreen(
+                      productId: widget.productId,
+                    ),
+                  );
                 },
                 child: const Icon(Icons.add, size: 28),
               ),

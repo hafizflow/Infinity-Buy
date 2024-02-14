@@ -296,13 +296,15 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                               if (result) {
                                 Get.offAll(() => const MainBottomNavScreen());
                               } else {
-                                Get.showSnackbar(GetSnackBar(
-                                  title: 'Complete profile failed',
-                                  message:
-                                      completeProfileController.errorMessage,
-                                  duration: const Duration(seconds: 2),
-                                  isDismissible: true,
-                                ));
+                                Get.showSnackbar(
+                                  GetSnackBar(
+                                    title: 'Complete profile failed',
+                                    message:
+                                        completeProfileController.errorMessage,
+                                    duration: const Duration(seconds: 2),
+                                    isDismissible: true,
+                                  ),
+                                );
                               }
                             }
                           },
