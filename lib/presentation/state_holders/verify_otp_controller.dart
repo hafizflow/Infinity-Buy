@@ -28,8 +28,6 @@ class VerifyOtpController extends GetxController {
       Urls.verifyOtp(email, otp),
     );
 
-    log("Response: ${response.responseData['data']}");
-
     _otpVerifyInProgress = false;
 
     if (response.isSuccess) {
