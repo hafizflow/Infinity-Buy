@@ -2,7 +2,7 @@
 
 A ecommerce Flutter project.
 
-<img width="658" alt="Screenshot 2024-02-14 at 2 53 06 PM" src="https://github.com/hafizflow/Infinity-Buy/assets/143031834/1fd71ee2-c3c6-4da0-b187-74ed04b80524">
+![Infinity Buy](https://github.com/hafizflow/Infinity-Buy/assets/143031834/3baabbbc-f2e1-483b-ad40-5494c28182b2)
 
 # Technology Stack:
 Developed using Flutter framework.
