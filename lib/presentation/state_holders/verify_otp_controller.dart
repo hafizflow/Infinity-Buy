@@ -35,8 +35,6 @@ class VerifyOtpController extends GetxController {
       log("Response: $response");
       log("Token from verify otp: $_token");
 
-      // await Future.delayed(const Duration(seconds: 3));
-
       final result =
           await Get.find<ReadProfileDataController>().readProfileData(_token);
 
