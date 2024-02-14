@@ -36,11 +36,11 @@ Handles API calls efficiently with error handling mechanisms.
 Provides a robust connection between the front-end and back-end.
 
 
-<p align="right">
-  <img width="466" alt="Screenshot 2024-02-14 at 2 31 13 PM" src="https://github.com/hafizflow/Infinity-Buy/assets/143031834/88e72c1d-2b11-4956-8554-2003d64f4586">
-  <img width="466" alt="Screenshot 2024-02-14 at 2 35 49 PM" src="https://github.com/hafizflow/Infinity-Buy/assets/143031834/4273980d-987f-49e3-b785-3f2029a7ab92">
-  <img width="466" alt="Screenshot 2024-02-14 at 2 36 47 PM" src="https://github.com/hafizflow/Infinity-Buy/assets/143031834/f82ce217-d8f1-4151-be5a-49d075df494b">
-  <img width="466" alt="Screenshot 2024-02-14 at 2 37 10 PM" src="https://github.com/hafizflow/Infinity-Buy/assets/143031834/553e6219-5c7b-483b-aee0-1f8064b2b1cb">
-</p>
+<div>
+  <img width="466" alt="Screenshot 2024-02-14 at 2 31 13 PM" src="https://github.com/hafizflow/Infinity-Buy/assets/143031834/88e72c1d-2b11-4956-8554-2003d64f4586" style="display-inline-block">
+  <img width="466" alt="Screenshot 2024-02-14 at 2 35 49 PM" src="https://github.com/hafizflow/Infinity-Buy/assets/143031834/4273980d-987f-49e3-b785-3f2029a7ab92 style="display-inline-block"">
+  <img width="466" alt="Screenshot 2024-02-14 at 2 36 47 PM" src="https://github.com/hafizflow/Infinity-Buy/assets/143031834/f82ce217-d8f1-4151-be5a-49d075df494b style="display-inline-block"">
+  <img width="466" alt="Screenshot 2024-02-14 at 2 37 10 PM" src="https://github.com/hafizflow/Infinity-Buy/assets/143031834/553e6219-5c7b-483b-aee0-1f8064b2b1cb style="display-inline-block"">
+</div>
 
 
